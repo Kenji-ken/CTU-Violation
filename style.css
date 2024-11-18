@@ -4,10 +4,6 @@
     box-sizing: border-box;
     font-family: 'Montserrat';
 }
-
-body {
-    background: #ededed;
-}
 .container {
     background-color: #161E26;
     color: #f8f8f8;
@@ -18,6 +14,7 @@ body {
     min-height: 100vh;
     overflow: hidden;
     position: relative;
+    height: 100%;
 }
 
 @keyframes pulse-bg {
@@ -48,7 +45,7 @@ body {
 .upper-text  h1 {
     font-size: 8.5rem;
     font-family: "Lexend Deca", sans-serif;
-    letter-spacing: 1px; 
+    letter-spacing: 0px; 
 }
 
 .button {
@@ -364,6 +361,17 @@ form {
     position: relative;
     justify-items: center;
 }
+.modal-content-student-record {
+    background: #6b7b8773;
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 10px;
+    width: 700px;
+    height: 80%;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+    position: relative;
+    justify-items: center;
+}
 
 .logo {
     width: 85px;
@@ -590,9 +598,7 @@ img.manual {
     text-decoration: none;
     color: #ffffff;
 }
-.student-manual-btn:hover {
-    transform: scale(1.05);
-}
+
 .password-container {
     position: relative;
     width: 320px;  /* Set the container width */
@@ -697,4 +703,154 @@ img.manual {
     font-weight: bold;
     text-transform: uppercase;
   }
+}
+.student-info {
+    position: relative;
+    top: 20px;
+}
+.student-info img {
+    object-fit: cover;
+    border-radius: 50%;
+    width: 130px;
+    height: 130px;
+    position: relative;
+    left: 15px;
+}
+.student-details {
+    position: relative;
+    top: -125px;
+    left: 180px;
+}
+.student-details p {
+    margin-bottom: 10px;
+    color: #fff;
+}
+#violation-details {
+    width: 100%;
+}
+#violation-details h2 {
+    text-align: center;
+    color: #fa9800;
+    text-shadow: 0px 0px 5px #e08e0f;
+}
+.student-violation-record th {
+    width: 200px;
+    padding: 10px;
+    border-bottom: 1px solid;
+}
+.student-violation-record td {
+    text-align: center;
+    padding: 10px;
+}
+.student-violation-record {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    position: relative;
+    top: -95px;
+    background: #0e1216ad;
+}
+th.time-remaining {
+    position: absolute;
+    bottom: -70px;
+    left: 135px;
+    border-bottom: none;
+}
+td.time-remaining {
+    position: absolute;
+    bottom: -70px;
+    width: 100%;
+    left: 82px;
+    
+}
+.time-remaining img {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: 7px;
+    left: -8px;
+}
+a#forgotStaffPassword {
+    text-decoration: none;
+    color: #fff;
+}
+
+@media (max-width: 1024px) {
+    .modal-content-student-record {
+        top: 7px !important;
+        height: 440px;
+    }
+    th.time-remaining {
+        bottom: -55px;
+    }
+    td.time-remaining {
+        bottom: -55px;
+    }
+}
+@media (max-width: 769px) {
+    #closeViolationModal {
+        top: 15px;
+        right: 20px;
+    }
+}
+@media (max-width: 426px) {
+    .modal-content-student-record {
+        height: 100%;
+    }
+    .student-info img {
+        left: 110px;
+        top: 0;
+        height: 110px;
+        width: 110px;
+    }
+    .student-details {
+        position: static;
+    }
+    .student-violation-record {
+        top: 30px;
+       
+    }
+    #closeViolationModal {
+        top: 20px;
+        right: 20px;
+
+    }
+    .student-details p {
+        margin-bottom: 5px;
+        top: 20px;
+        position: relative;
+    }
+    td.time-remaining {
+        bottom: -85px;
+        left: 10px;
+    }
+    th.time-remaining {
+        left: 75px;
+    }
+}
+@media (max-width: 376px) {
+    #violation-details h2 {
+        font-size: 28px;
+    }
+    .student-info img {
+        left: 90px;
+        top: -5px;
+        height: 105px;
+        width: 105px;
+    }
+    th.time-remaining {
+        left: 45px;
+    }
+    td.time-remaining {
+        left: 5px;
+    }
+
+}
+@media (max-width: 320px) {
+    .student-details p {
+        font-size: 15px;
+    }
+    #closeViolationModal {
+        top: 10px;
+        right: 30px;
+    }
 }
