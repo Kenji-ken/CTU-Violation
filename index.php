@@ -92,7 +92,7 @@
             
             <button type="submit" class="login-btn" id="modal-btn">Login</button>
         </form>
-        <a href="#" id="forgotStaffPassword">Forgot Password?</a>
+        <a href="reset_staff_password.php" id="forgotStaffPassword">Forgot Password?</a>
     </div>
 </div>
 
