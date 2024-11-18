@@ -38,8 +38,7 @@ if (!file_exists($image_url)) {
 }
 
 // Insert violation data into the database
-$sql = "INSERT INTO violations (student_id, lastname, firstname, violation, offense, sanction, course, department, image_url, end_time) 
-       VALUES ('$student_id', '$lastname', '$firstname', '$violation', '$offense', '$sanction', '$course', '$department', '$image_url', DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 3 DAY))";
+$sql = "INSERT INTO violations (student_id, lastname, firstname, violation, offense, sanction, course, department, image_url, end_time) VALUES ('$student_id', '$lastname', '$firstname', '$violation', '$offense', '$sanction', '$course', '$department', '$image_url', DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 3 DAY))";
 
 if ($conn->query($sql) === TRUE) {
     echo json_encode(['success' => true]);
