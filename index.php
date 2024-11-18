@@ -132,7 +132,7 @@
 
 <!-- Violation Record Modal -->
 <div id="violationModal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content-student-record">
         <span class="close" id="closeViolationModal">&times;</span>
         <div id="violation-details">
             <!-- Content populated by JavaScript -->

@@ -107,23 +107,28 @@ function showViolationModal(studentId) {
 
                 violationDetails.innerHTML = `
                     <h2>Student Profile</h2>
-                    <img src="${student.photo}" alt="Student Photo" style="border-radius: 50%; width: 150px; height: 150px;">
-                    <p><strong>ID Number:</strong> ${student.student_id}</p>
-                    <p><strong>Name:</strong> ${student.firstname} ${student.lastname}</p>
-                    <p><strong>Course:</strong> ${student.course}</p>
-                    <p><strong>Department:</strong> ${student.department}</p>
-                    <table>
+                    <div class="student-info">
+                        <img src="${student.photo}" alt="Student Photo">
+                     <div class="student-details">
+                          <p><strong>ID Number:</strong> ${student.student_id}</p>
+                          <p><strong>Name:</strong> ${student.firstname} ${student.lastname}</p>
+                          <p><strong>Course:</strong> ${student.course}</p>
+                          <p><strong>Department:</strong> ${student.department}</p>
+                     </div>
+                    </div>
+
+                    <table class="student-violation-record">
                         <tr>
                             <th>Violation</th>
                             <th>Offense</th>
                             <th>Sanction</th>
-                            <th>Time Remaining</th> <!-- Updated label -->
+                            <th class="time-remaining"><img src="images/timer.png">Time Remaining</th> <!-- Updated label -->
                         </tr>
                         <tr>
                             <td>${student.violation}</td>
                             <td>${student.offense}</td>
                             <td>${student.sanction}</td>
-                            <td><span id="time-remaining" data-cycle="${student.cycle}">${student.time ?? 0}</span></td> <!-- Time element for countdown -->
+                            <td class="time-remaining"><span id="time-remaining" data-cycle="${student.cycle}">${student.time ?? 0}</span></td> <!-- Time element for countdown -->
                         </tr>
                     </table>
                 `;
