@@ -43,7 +43,7 @@
             <a href="#" class="button staff-button" id="staff-btn">Report Violation</a> <!-- Staff button -->
         </div>
     </div>
-    <div class="student-manual-btn"><a href="student_Manual.html"><img src="main/images/manual.png" class="manual" id="s-manual">Student Manual</a></div>
+    <div class="student-manual-btn"><a href="mannual.php"><img src="main/images/manual.png" class="manual" id="s-manual">Student Manual</a></div>
     <div class="background-overlay"></div>
 
     <!-- Full Screen Warning Icon Overlay -->
