@@ -2,7 +2,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,32 +9,9 @@
     <link rel="stylesheet" href="style.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <style>
-        .alert {
-            background: black;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            width: 400px;
-            box-shadow: 0 0 15px rg ba(0, 0, 0, 0.2);
-            color: #f8f8f8;
-
-
-            position: fixed;
-            top: 5px;
-            left: 50%;
-
-            transform: translateX(-50%);
-
-            z-index: 99999999999;
-        }
-    </style>
-</head>
-
+    </head>
 <body>
 
     <?php if (isset($_SESSION["form_message"])): ?>
@@ -44,32 +20,30 @@
         </div>
     <?php endif ?>
 
-
+    <div class="container">
     <div class="warning-banner">
-        <img src="images/ourlogo.png" class="nav-logo">
-        <a href="#" class="admin-button" id="admin-btn"><img src="images/admin-icon.png" class="admin-icon"> </a>
+    <div><img src="main/images/logo.png" class="nav-logo"></div>
+        <div class="admin-button"><a href="#" id="admin-btn"><img src="main/images/admin-icon2.png" class="admin-icon"><span>Admin</span></a></div>
     </div>
 
     <div class="content">
-        <div class="logo-name">
-            <div class="upper-text">
-                <h1>VIOLATI<img src="images/timer.png" class="timer">N</h1>
-            </div>
+         <div class="logo-name">
+            <div class="upper-text"><h1>VIOLATION<img src="main/images/timer2.png" class="timer">N</h1></div>
             <div class="lower-text">TRACKER</div>
         </div>
 
         <!-- Updated the Appeal button to a search form for Student ID -->
         <form id="search-student-form">
-            <input type="text" id="student-id" placeholder="Enter Student ID" required>
-            <button type="submit" class="button pulse" id="search-btn">Search ID</button>
+            <input type="text" id="student-id" class="student-id-text" placeholder="Enter Student ID" required>
+            <button type="submit" class="button pulse" id="search-btn"><img src="main/images/search-icon3.png" class="search-icon"></button>
         </form>
 
         <div class="button-group">
-
+           
             <a href="#" class="button staff-button" id="staff-btn">Report Violation</a> <!-- Staff button -->
         </div>
     </div>
-
+    <div class="student-manual-btn"><a href="student_Manual.html"><img src="main/images/manual.png" class="manual" id="s-manual">Student Manual</a></div>
     <div class="background-overlay"></div>
 
     <!-- Full Screen Warning Icon Overlay -->
@@ -79,35 +53,42 @@
     </div>
 
     <!-- Admin Login Modal (unchanged) -->
-    <div id="adminModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeAdmin">&times;</span>
-            <img src="images/ourlogo.png" alt="Logo" class="logo">
-            <h3>Login Admin</h3>
-            <form action="admin.php" method="post">
-                <label for="username">Username</label>
-                <input type="text" id="admin-username" name="username" placeholder="Admin" required>
-
-                <label for="password">Password</label>
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeAdmin">&times;</span> 
+        <img src="main/images/logo.png" alt="Logo" class="logo">
+        <h3>Login Admin</h3>
+        <form action="admin.php" method="post">
+            <label for="username">Username</label>
+            <input type="text" id="admin-username" name="username" placeholder="Admin" required>
+            
+            <label for="password">Password</label>
+            <div class="password-container">
                 <input type="password" id="admin-password" name="password" placeholder="Password" required>
-
-                <button type="submit" class="login-btn" id="modal-btn">Login</button>
-            </form>
-        </div>
+                <i class="fa fa-eye toggle-password" onclick="togglePasswordVisibility('admin-password', this)"></i>
+            </div>
+            
+            <button type="submit" class="login-btn" id="modal-btn">Login</button>
+        </form>
     </div>
+</div>
 
 <!-- Staff Login Modal (with Forgot Password) -->
+
 <div id="staffModal" class="modal">
     <div class="modal-content">
         <span class="close" id="closeStaff">&times;</span>
-        <img src="images/ourlogo.png" alt="School Logo" class="logo">
+        <img src="main/images/logo.png" alt="School Logo" class="logo">
         <h3>Login Staff</h3>
         <form action="staff.php" method="post">
             <label for="username">Username</label>
             <input type="text" id="staff-username" name="username" placeholder="Staff" required>
             
             <label for="password">Password</label>
-            <input type="password" id="staff-password" name="password" placeholder="Password" required>
+            <div class="password-container">
+                <input type="password" id="staff-password" name="password" placeholder="Password" required>
+                <i class="fa fa-eye toggle-password" onclick="togglePasswordVisibility('staff-password', this)"></i>
+            </div>
             
             <button type="submit" class="login-btn" id="modal-btn">Login</button>
         </form>
@@ -158,9 +139,11 @@
         </div>
     </div>
 </div>
+</div>
 
     <!-- JavaScript -->
     <script src="script.js"></script>
+
 </body>
 
 </html>
