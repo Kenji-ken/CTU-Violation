@@ -28,7 +28,7 @@
 
     <div class="content">
          <div class="logo-name">
-            <div class="upper-text"><h1>VIOLATION<img src="main/images/timer2.png" class="timer">N</h1></div>
+            <div class="upper-text"><h1>VIOLATI<img src="main/images/timer2.png" class="timer">N</h1></div>
             <div class="lower-text">TRACKER</div>
         </div>
 
