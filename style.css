@@ -1,13 +1,15 @@
-/* Reset and Global Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat';
 }
 
 body {
-    background-color: #ededed;
+    background: #ededed;
+}
+.container {
+    background-color: #161E26;
     color: #f8f8f8;
     display: flex;
     flex-direction: column;
@@ -24,11 +26,9 @@ body {
     100% { opacity: 0.4; }
 }
 
-/* Banner and Content Styling */
 .warning-banner {
     color: #ffffff;
     padding: 20px;
-    font-weight: bold;
     text-align: center;
     width: 100%;
     position: fixed;
@@ -40,50 +40,45 @@ body {
 
 .content {
     text-align: center;
-    padding: 0 20px;
+    margin-top: 0;
     position: relative;
+    padding: 0 20px; /* Add padding for smaller screens */
 }
 
-/* Header Styling */
-.upper-text h1 {
+.upper-text  h1 {
     font-size: 8.5rem;
     font-family: "Lexend Deca", sans-serif;
-    letter-spacing: 1px;
+    letter-spacing: 1px; 
 }
 
-/* Button Styling */
 .button {
     text-decoration: none;
-    color: #ffffff;
+    color: #fff;
     border-radius: 10px;
     font-size: 1.3rem;
     display: inline-block;
-    background: #FA9800;
-    padding: 15px 40px;
     transition: background-color 0.3s ease;
     position: relative;
     z-index: 10;
+    border-style: none;
+    background: #FA9800;
+    padding: 15px 40px;
 }
 
 .button:hover {
-    background-color: #222d39;
+    background-color: #ce7e03;
     transform: scale(1.05);
 }
-
-/* Additional Text Styling */
 .logo-name {
-    color: #161E26;
+    color:  #fff;
 }
-
 .lower-text {
     font-size: 3rem;
-    color: #000;
-    font-weight: 700;
     position: relative;
     top: -20px;
+    font-weight: 700;
 }
 
-/* Warning Overlay Styling */
 .warning-overlay {
     position: fixed;
     top: 0;
@@ -108,12 +103,244 @@ body {
     margin-top: 10px;
 }
 
+/* Show the warning overlay */
 .show-warning {
     opacity: 1;
     visibility: visible;
 }
 
-/* Modal Styling */
+/* Media Queries for Responsiveness */
+@media (max-width: 851px) {
+    .upper-text  h1 {
+    font-size: 7rem;
+    }
+    
+    .timer {
+        width: 14%;
+    }
+    img {
+        width: 200px;
+    }
+    .lower-text {
+        font-size: 2.5rem;
+    }
+
+    .glitch-text {
+        font-size: 6rem;
+    }
+
+    .button, .admin-button {
+        font-size: 1.3rem;
+    }
+
+    .warning-overlay {
+        font-size: 4rem;
+    }
+
+    .warning-overlay p {
+        font-size: 1.2rem;
+    }
+}
+@media (max-width: 650px) {
+    .upper-text  h1 {
+    font-size: 5.5rem;
+    }
+    .lower-text {
+        font-size: 2.3rem;
+    }
+    #student-id {
+        font-size: 15px;
+    }
+    button {
+        padding: 10px;
+        font-size: 1rem;
+    }
+    button#search-btn {
+        padding: 10px;
+        font-size: 1rem;
+    }
+    #staff-btn {
+        font-size: 1rem;
+    }
+    #s-manual {
+        right: 0;
+    }
+}
+@media (max-width: 570px) {
+    .upper-text  h1 {
+        font-size: 5rem;
+    }
+    .timer {
+        width: 12%;
+    }
+    .lower-text {
+        font-size: 2.1rem;
+        margin-top: 10px;
+    }
+    #student-id {
+        font-size: 17px;
+    }
+    button#search-btn {
+       font-size: 17px; 
+    }
+    .button {
+       font-size: 1.1rem;
+    }
+    #staff-btn {
+        font-size: 18px;
+    }
+   
+}
+@media (max-width: 480px) {
+    .upper-text h1 {
+        font-size: 70px;
+    }
+    .lower-text {
+        font-size: 25px;
+        top: -15px;
+    }
+    .glitch-text {
+        font-size: 4rem;
+    }
+    .student-id-text {
+        width: 345px;
+        font-size: 15px;
+    }
+    .warning-overlay {
+        font-size: 3rem;
+    }
+
+    .warning-overlay p {
+        font-size: 1rem;
+    }
+    button#search-btn {
+       top: 6px;
+    }
+    #closeStaff {
+       top: 13px;
+       right: 10px;
+    }
+    #closeAdmin {
+       top: 13px;
+       right: 10px;
+    }
+
+    input[type="text"]#student-id {
+       font-size: 18px;
+       margin-top: 20px;
+    }
+}
+@media (max-width: 425px) {
+    .upper-text h1 {
+        font-size: 3.7rem;
+    }
+   input[type="text"]#student-id {
+       font-size: 16px !important;
+       margin-top: 20px;
+    }
+   #staff-btn {
+        font-size: 16px;
+        padding: 15px;
+    }
+   .student-manual-btn {
+       font-size: 15px !important;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 11rem !important; 
+    }
+   #search-btn {
+       width: 70px !important;
+       height: 45px !important;
+   }
+   img.search-icon {
+       width: 30px !important;
+   }
+}
+@media (max-width: 375px) {
+   img.nav-logo {
+      width: 60px;
+      height: 60px;
+   }
+   .admin-button span {
+      display: none;
+   }
+   .admin-button {
+      border-bottom: none !important;
+      text-align: right !important;
+   } 
+  #closeAdmin, #closeStaff {
+      right: 17px !important;
+      width: 6% !important;
+   }
+   .close {
+      font-size: 1.3rem !important;
+   }
+   .student-manual-btn {
+      font-size: 13px !important;
+      width: 10rem !important;
+      margin-bottom: 10px;
+   }
+   img.manual {
+      width: 68px !important;
+      height: 70px !important;
+   }
+}
+@media (max-width: 366px) {
+    .upper-text h1 {
+        font-size: 3rem;
+    }
+}
+@media (max-width: 320px) {
+    .upper-text h1 {
+        font-size: 3rem;
+    }
+    input[type="text"]#student-id {
+        font-size: 15px !important;   
+        padding: 9px;
+    }
+    button#search-btn {
+        top: 5px;
+    }
+    #search-btn {
+        width: 50px !important;
+        height: 40px !important;
+    }
+    img.search-icon {
+        width: 25px !important;
+    }
+    .admin-button {
+        position: relative;
+        right: -20px;
+    }
+    img.admin-icon {
+        width: 27px;
+        height: 27px;
+    }
+    .modal-content {
+        width: 325px !important;
+        padding: 25px !important;
+    }
+    input[type="text"], input[type="password"] {
+        width: 270px !important;
+    }
+    .login-btn {
+        width: 270px !important;
+    }
+}
+form {
+    width: 100%;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    margin-top: 10px; /* Space between Appeal button and button group */
+}
+
+.staff-button {
+    margin: 0 10px; /* Space between the Admin and Staff buttons */
+}
+/* General Modal Styling */
 .modal {
     display: none;
     position: fixed;
@@ -122,90 +349,49 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    /* background-color: rgba(0, 0, 0, 0.8); */
+    background-color: rgba(0, 0, 0, 0.8); /* Slightly darker background */
     justify-content: center;
     align-items: center;
 }
-
 .modal-content {
-    background: rgba(107, 123, 135, 0.45);
+    background: #6b7b8773;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 20px;
+    padding: 35px;
     border-radius: 10px;
-    text-align: center;
-    width: 80%;
-    max-width: 400px;
+    width: 395px;
     box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+    position: relative;
+    justify-items: center;
 }
 
-/* Responsive Media Queries */
-@media (max-width: 570px) {
-    .upper-text h1 {
-        font-size: 4rem; /* Adjust this value as needed */
-    }
-}
-    .lower-text {
-        font-size: 2.5rem;
-    }
-    .button {
-        font-size: 1.1rem;
-    }
-    .warning-overlay {
-        font-size: 4rem;
-    }
-    .warning-overlay p {
-        font-size: 1.2rem;
-    }
-
-@media (max-width: 570px) {
-    .upper-text h1 {
-        font-size: 4rem; /* Adjust this value as needed */
-    }
+.logo {
+    width: 85px;
+    position: relative;
+    top: -6px;
+    animation: pulse-logo 1.5s infinite;
+    margin-bottom: 15px;
 }
 
-    .lower-text {
-        font-size: 2.1rem;
-    }
-    .button {
-        font-size: 1rem;
-        padding: 10px 30px;
-    }
-    .warning-overlay p {
-        font-size: 1rem;
-    }
-
-    @media (max-width: 570px) {
-        .upper-text h1 {
-            font-size: 4rem; /* Adjust this value as needed */
-        }
-        
-    .lower-text {
-        font-size: 2rem;
-        top: -15px;
-    }
-    .button {
-        font-size: 0.9rem;
-        padding: 8px 20px;
-    }
-    .warning-overlay {
-        font-size: 3rem;
-    }
-    .warning-overlay p {
-        font-size: 1rem;
-    }
+h2 {
+    font-size: 2.3rem;
+    color: #ff4d4d;
+    margin-bottom: 10px;
+    text-shadow: 0px 0px 5px rgba(255, 77, 77, 0.8);
+    top: 5px;
+    left: 5px;
+    position: relative;
 }
 
-.button-group {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
+h3 { 
+    text-shadow: 0px 0px 5px #cd9540c7;
+    font-size: 1.5rem;
+    color: white;
+    letter-spacing: 0.5px;
+    position: relative;
+    margin-bottom: 20px;
 }
 
-.admin-button, .staff-button {
-    margin: 0 10px;
-}
-/* Input Field Styling */
 input[type="text"],
 input[type="password"] {
     width: 320px;
@@ -215,36 +401,46 @@ input[type="password"] {
     color: #000000;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;
-    font-size: 20px;
+    font-size: 17px;
     outline: none;
     transition: border 0.3s ease;
-    filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.25));  
+     
 }
 
 input[type="text"]:focus,
 input[type="password"]:focus {
-    box-shadow: 0px 0px 10px rgba(34, 45, 57, 1);
+    box-shadow: 0px 0px 10px rgb(20 129 163 0);
+}
+input[type="text"]#student-id {
+    width: 100%;
+    max-width: 500px;
+    font-size: 20px;
+}
+input[type="text"]#student-id:hover {
+    filter: drop-shadow(0px 1px 25px rgba(107, 123, 135, 0.5));
 }
 
-/* Button Styling */
 .login-btn {
-    padding: 10px 100px;
+    width: 320px;
+    padding: 11px;
     background-color: #fa9800;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 1.2rem;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    margin: 20px 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .login-btn:hover {
-    background-color: #d43c3c;
-    box-shadow: 0px 0px 15px rgba(255, 77, 77, 0.8);
+    background-color: #ce7e03;
+    box-shadow: 0px 0px 15px #ce7e03;
 }
 
-/* Button Pulse Animation */
+/* Button Pulse Effect */
 @keyframes pulse-btn {
     0%, 100% {
         transform: scale(1);
@@ -254,7 +450,6 @@ input[type="password"]:focus {
     }
 }
 
-/* Close Button Styling */
 .close {
     position: absolute;
     top: -40px;
@@ -270,176 +465,236 @@ input[type="password"]:focus {
     background: #00000061;
     border-radius: 20px;
     width: 8%;
+    text-align: center;
 }
 
-/* Navbar and Icon Styling */
 .nav-logo {
-    width: 75px;
-    height: 75px;
-    position: relative;
+   width: 75px;
+   height: 75px;
+   position: relative;
 }
-
 .admin-icon {
-    width: 35px;
-    height: 35px;
-    position: relative;
+   width: 30px;
+   height: 30px;
+   position: relative;
+   right: 7px;
+   top: 4px;
 }
-
+#search-student-form {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: relative;
+   top: -12px;
+   left: 20px;
+}
+#search-btn {
+   padding: 3px;
+   border-radius: 20px;
+   position: relative;
+   left: -45px;
+   top: 0;
+   font-size: 1.2rem;
+   background: #fa9800;
+   width: 73px;
+   height: 48px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   
+}
+img.search-icon  {
+   width: 40px;
+   object-fit: cover;
+}
+.timer {
+   position: relative;
+   width: 14%;
+}
+.nav-modal {
+   display: flex;
+   align-items: center;
+}
+#modal-btn {
+   border-radius: 10px;
+}
 .nav img {
-    width: 60px;
+   width: 60px;
 }
-
 .nav {
     padding: 20px;
     width: 100%;
-    position: relative;
     top: 0;
     display: flex;
-    justify-content: flex-end;
-}
-
-/* Search Form Styling */
-#search-student-form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
-    top: -12px;
+    justify-content: right;
 }
-
-#search-btn {
-    padding: 13px;
-    border-radius: 20px;
-    position: relative;
-    left: 15px;
-    font-size: 1.2rem;
-}
-
-/* Timer Styling */
-.timer {
-    position: relative;
-    width: 14%;
-}
-
-/* Modal Button Styling */
-#modal-btn {
-    border-radius: 10px;
-}
-
-/* Content and Container Styling */
 .container_s-manual {
     width: 100%;
-    height: 90rem;
-    background: #161E26;
-    position: absolute;
+    background: #6B7B87;
     top: 0;
     z-index: -1;
 }
-
 .content_s-manual {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
 img.manual {
-    width: 315px;
-    height: 354px;
+    width: 75px;
+    height: 75px;  
+    position: absolute;
+    bottom: 0;
+    left: -25px;
 }
-
+.manual-title {
+    position: relative;
+    left: 50px;
+}
 .manual-title h1 {
-    font-size: 5rem;
+    font-size: 6rem;
+    width: 50rem;
+}
+.admin-icon:hover {
+    border: 1px solid #fa9800;
+    border-radius: 20px;
+    padding: 1px;  
+}
+.admin-button a {
+   color: #fff;
+   text-decoration: none;
+   font-size: 13px;
+}
+.admin-button {
+    padding: 3px;
+    border-radius: 10px;
+    width: 100px;
+    border-bottom: 1px solid #6B7B87;
+}
+.admin-button:hover {
+    transform: scale(1.05);
+    border-bottom: 1px solid #fa9800;;
+}
+.student-manual-btn {
+    border-radius: 10px;
+    background: #0E1216;
+    font-size: 18px;
+    position: absolute;
+    bottom: 20px;
+    right: 35px;
+    width: 13rem;
+    text-align: right;
+    padding: 15px;
+}
+.student-manual-btn a {
+    text-decoration: none;
+    color: #ffffff;
+}
+.student-manual-btn:hover {
+    transform: scale(1.05);
+}
+.password-container {
+    position: relative;
+    width: 320px;  /* Set the container width */
 }
 
-/* Responsive Adjustments */
-@media (max-width: 851px) {
-    .logo {
-        width: 60px;
-    }
-    h2 {
-        font-size: 2rem;
-    }
-    h3 {
-        font-size: 1.2rem;
-    }
-    input[type="text"],
-    input[type="password"] {
-        width: 80%;
-        font-size: 1rem;
-    }
-    .login-btn {
-        padding: 10px 80px;
-    }
-    .manual-title h1 {
-        font-size: 4rem;
-    }
+.password-container input[type="password"],
+.password-container input[type="text"] {
+    width: 100%;  /* Make the input field take up the full width of the container */
+    padding-right: 40px;  /* Add extra padding on the right to accommodate the icon */
 }
 
-@media (max-width: 570px) {
-    .logo {
-        width: 50px;
-    }
-    h2 {
-        font-size: 1.8rem;
-    }
-    h3 {
-        font-size: 1rem;
-    }
-    input[type="text"],
-    input[type="password"] {
-        width: 70%;
-        font-size: 0.9rem;
-    }
-    .login-btn {
-        padding: 10px 50px;
-        font-size: 1rem;
-    }
-    #search-btn {
-        font-size: 1rem;
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #888;
+}
+
+.s-manual {
+    width: 100%;
+    position: relative;
+    left: 85px;
+}
+
+
+.table-container-light {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 20px;
+  padding: 70px;
+}
+
+.table-container-serious {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 20px;
+  padding: 50px;
+}
+.table-container-v-serious {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 20px;
+  padding: 50px;
+}
+
+
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.responsive-table th, .responsive-table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.responsive-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.responsive-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Responsive styling */
+@media (max-width: 600px) {
+  .responsive-table thead {
+    display: none;
+  }
+  
+  .responsive-table tr {
+    display: block;
+    margin-bottom: 15px;
+  }
+
+  .responsive-table td {
+    display: flex;
+        justify-content: end;
+        position: relative;
+        text-align: left;
+        padding-left: 50%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border-bottom: 1px solid #ddd;
         padding: 10px;
-    }
-    .timer {
-        width: 18%;
-    }
-    img.manual {
-        width: 250px;
-        height: auto;
-    }
-    .manual-title h1 {
-        font-size: 3rem;
-    }
-}
+  }
 
-@media (max-width: 480px) {
-    .logo {
-        width: 40px;
-    }
-    h2 {
-        font-size: 1.6rem;
-    }
-    h3 {
-        font-size: 0.9rem;
-    }
-    input[type="text"],
-    input[type="password"] {
-        width: 90%;
-        font-size: 0.8rem;
-        padding: 8px 10px;
-    }
-    .login-btn {
-        padding: 8px 30px;
-        font-size: 0.9rem;
-    }
-    #search-btn {
-        font-size: 0.9rem;
-        padding: 8px;
-    }
-    .timer {
-        width: 20%;
-    }
-    img.manual {
-        width: 200px;
-        height: auto;
-    }
-    .manual-title h1 {
-        font-size: 2.5rem;
-    }
+  .responsive-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
 }
