@@ -168,7 +168,7 @@ function setupPasswordToggle(passwordFieldId, toggleIconElement) {
     // Initially hide the icon
     toggleIconElement.style.visibility = "hidden";
 }
-
+//ambot//
 // Call setup function for each password field and corresponding icon
 setupPasswordToggle("admin-password", document.querySelector("#adminModal .toggle-password"));
 setupPasswordToggle("staff-password", document.querySelector("#staffModal .toggle-password"));
