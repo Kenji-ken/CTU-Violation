@@ -143,7 +143,37 @@
 
     <!-- JavaScript -->
     <script src="script.js"></script>
+    <script>
+function togglePasswordVisibility(passwordFieldId, toggleIconElement) {
+    const passwordField = document.getElementById(passwordFieldId);
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleIconElement.classList.remove("fa-eye");
+        toggleIconElement.classList.add("fa-eye-slash");  // Show crossed-out eye
+    } else {
+        passwordField.type = "password";
+        toggleIconElement.classList.remove("fa-eye-slash");
+        toggleIconElement.classList.add("fa-eye");  // Show open eye
+    }
+}
 
+function setupPasswordToggle(passwordFieldId, toggleIconElement) {
+    const passwordField = document.getElementById(passwordFieldId);
+
+    // Show icon only when there is text in the password field
+    passwordField.addEventListener("input", () => {
+        toggleIconElement.style.visibility = passwordField.value ? "visible" : "hidden";
+    });
+
+    // Initially hide the icon
+    toggleIconElement.style.visibility = "hidden";
+}
+
+// Call setup function for each password field and corresponding icon
+setupPasswordToggle("admin-password", document.querySelector("#adminModal .toggle-password"));
+setupPasswordToggle("staff-password", document.querySelector("#staffModal .toggle-password"));
+
+</script>
 </body>
 
 </html>
