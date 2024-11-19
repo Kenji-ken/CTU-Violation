@@ -278,7 +278,7 @@ function toggleOthersInput() {
 
         // Modal close functionality
         document.querySelectorAll('.close').forEach(element => {
-            element.addEventListener('click', function() { 
+            element.addEventListener('click', function() {
                 this.parentElement.parentElement.style.display = 'none';
             });
         });
