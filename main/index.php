@@ -358,27 +358,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const leftContainer = document.getElementById("left-container");
-    const rightContainer = document.querySelector(".right-container");
-    const hamburgerIcon = document.getElementById("hamburger-icon");
-
-    let isLeftVisible = false;
-
-    hamburgerIcon.addEventListener("click", () => {
-        if (isLeftVisible) {
-            // Hide left container and show right container
-            leftContainer.classList.remove("show");
-            rightContainer.classList.add("show");
-        } else {
-            // Show left container and hide right container
-            leftContainer.classList.add("show");
-            rightContainer.classList.remove("show");
-        }
-        isLeftVisible = !isLeftVisible;
-    });
-});
-
+    
     </script>    
 </body>
 </html>
