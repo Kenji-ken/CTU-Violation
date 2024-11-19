@@ -64,10 +64,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error_message)) {
 
         echo $_SESSION['staff_login_attempts'];
 
-        // Failed login, increase attempt count
-        $_SESSION['staff_login_attempts'] += 1;
-        $_SESSION['last_staff_attempt_time'] = time();
-        $error_message = "Invalid username or password. Attempts remaining: " . ($max_attempts - $_SESSION['staff_login_attempts']);
+       // Failed login, increase attempt count
+// Failed login, increase attempt count
+$_SESSION['staff_login_attempts'] += 1;
+$_SESSION['last_staff_attempt_time'] = time();
+$attempts_remaining = $max_attempts - $_SESSION['staff_login_attempts'];
+
+$error_message = "
+    <div style='display: flex; align-items: center; gap: 10px; justify-content: center;'>
+        <img src='main/images/error-icon.png' alt='Error Icon' style='width: 30px; height: 30px; border-radius: 0;'>
+        <div>
+            <p style='color: red; margin: 0;'>Invalid username or password.</p>
+            <p style='margin: 0;'>Attempts remaining: $attempts_remaining</p>
+        </div>
+    </div>";
+
 
         // Close the statement
         $stmt->close();
@@ -108,7 +119,7 @@ var span = document.getElementsByClassName("close")[0];
 
 // Show the modal if it exists
 if (modal) {
-    modal.style.display = "block";
+    modal.style.display = "flex";
 }
 
 // When the user clicks on <span> (x), close the modal and redirect

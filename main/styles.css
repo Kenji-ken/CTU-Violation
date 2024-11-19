@@ -11,22 +11,13 @@ body {
     background-attachment: fixed; /* Fixed background position */
     font-family: 'Montserrat';
 }
-.ctu-background-modify {
-    position: absolute;
-    width: 100%;
-    height: 633px;
-    left: 0px;
-    top: 0px;
-    background: rgba(12, 13, 14, 0.6);
-    background-size: cover;
-    background-repeat: no-repeat; 
-    background-attachment: fixed;
-}
+
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 50px;
+    padding: 60px 0 0 0;
+    width: 100%;
 }
 
 .left-container {
@@ -40,6 +31,7 @@ body {
     justify-items: center;
     border-radius: 5px;
     position: relative;
+    z-index: 1;
 }
 
 .left-container .violation-form {
@@ -71,7 +63,7 @@ body {
     width: 100%;
     font-weight: bold;
     margin-top: 13%;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 .right-container select {
@@ -82,11 +74,9 @@ body {
     margin-top: 5px;
     background: #161e26;
     color: #fff;
-    position: absolute;
-    top: 90%;
-    left: 0;
-            
-        }
+    position: relative; 
+    top: 33px;       
+}
 
 .main-content {
     display: flex;
@@ -147,7 +137,7 @@ body {
             left: 115px; 
             margin-bottom: 10px; 
             font-weight: bold;
-            font-size: 20px;
+            font-size: 24px;
         }
         .logo-d {
             position: absolute; /* Set position to absolute */
@@ -170,15 +160,20 @@ body {
 
 /* Profile image style */
 #profile-image {
-    width: 22%;
-    background-color: #000000;
+    width: 100%;
     border-radius: 50%;
-    position: absolute;
-    top: 110px;
-    left: 70px;
     background-image: url('/mnt/data/456755191_1245914606852832_4007482941706801221_n.png'); /* Replace with uploaded image */
     background-size: cover;
     background-position: center;
+    height: 165px;
+    object-fit: cover;
+
+}
+.profile-image-container {
+    width: 180px;
+    position: absolute;
+    top: 115px;
+    left: 70px;
 }
 
 /* Vertical line */
@@ -204,15 +199,22 @@ body {
 }
 .offense-text {
     position: absolute;
-    top: 390px;
+    top: 310px;
     font-size: 17px;
     left: 75px;  
 }
 .sanction-text {
     position: absolute;
-    top: 310px;
+    top: 390px;
     font-size: 17px;
     left: 75px;  
+}
+select#offense {
+    left: -75px;
+}select#light-offense {
+    left: -81px;
+}select#sanction {
+    left: -84px;
 }
  /* Style for modal */
  .modal {
@@ -261,15 +263,15 @@ body {
     display: block; /* Display the label as a block element */
     margin-bottom: 5px; /* Add margin to the bottom */
     color: #ffffff; /* Set text color */
-    font-size: 17px;
+    font-size: 15px;
 }
 
 /* Violation text */
-.violation-text {
-    position: absolute;
-    top: 310px;
-    font-size: 17px;
-    left: 380px;
+.violation-container {
+    position: relative;
+    top: 288px;
+    left: 350px;
+    height: 0;
 }
 /* Submit buttons (Cancel/Submit) */
 .right-buttons {
@@ -283,15 +285,17 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 5px;
     font-weight: bold;
     font-size: 15px;
 }
 
-.cancel-button {
-    background-color:#6b7b87;
-    color: white;
+.cancel-button {          
+    color: black;
+    border: 1px solid gray !important; /* Example: Adds a red, 2px solid border */
+    background: none;
 }
+
 
 .submit-button {
     background-color: #fa9800;
@@ -375,6 +379,7 @@ body {
 .ctu-background img {
    height: 173px;
    width: 100%;
+   border-radius: 5px;
 }
 
 .fa-search {
@@ -390,10 +395,8 @@ label {
 
 }
 #others-input-container {
-   position: relative;
-   top: 370px;
-   left: 345px;
-   height: min-content;
+    margin-top: 35px;
+    width: 70%;
 }
 #others-violation {
     border: none;
@@ -404,124 +407,95 @@ label {
     padding: 2%;
     width: 228px;
 }
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-    .container {
-        padding: 30px;
-    }
-    .left-container {
-        width: 250px;
-        height: 385px;
-        top: 20px;
-        position: relative;
-    }
-    .logo {
-        width: 120px;
-        height: 120px;
-    }
-    .ctu-background {
-        top: -143px;
-        width: 350px;
-    }
-    .left-container input[type="text"] {
-        padding: 10px;
-        font-size: 15px;
-    }
-    .left-container button {
-        padding: 9px 16px;
-        font-size: 17px;
-        width: 245px;
-        letter-spacing: 1px;
-    }
-    .search-forms label {
-        font-size: 14px;
-    }
-    .right-container {
-        height: 384px;
-        top: 20px;
-        width: 600px;
-    }
-    .search-forms {
-        top: -3%;
-    }
-    #profile-image {
-        width: 20%;
-        top: 23%;
-        height: 30%;
-        left: 8%;
-    }
-    .logo-text {
-        font-size: 16px;
-        left: 115px;
-    }
-    .vertical-line {
-        height: 120px;
-        left: 215px;
-        top: 102px;
-    }
-    .text-beside-line {
-        left: 230px;
-        top: 102px;
-    }
-    .text-beside-line p {
-        font-size: 14px;
-        margin-bottom: 9px;
-    }
-    .sanction-text {
-        top: 240px;
-        font-size: 15px;
-    }
-    .right-container select {
-        padding: 10px;
-    }
-    .offense-text {
-        top: 310px;
-        font-size: 15px;
-    }
-    .violation-text {
-        top: 240px;
-        font-size: 15px;
-        left: 365px;
-    }
-    #others-input-container {
-        top: 280px;
-        left: 330px;
-    }
-    .right-buttons {
-        bottom: 20px;
-    }
+ .hamburger {
+    font-size: 24px;
+    cursor: pointer;
+    padding: 4px 8px;
+    display: none; /* Hide by default */
+    position: absolute;
+    z-index: 999;
+    top: 40px;
+    left: 0;
+    color: #161e26;
+    background: #fa9800ad;
+    border-radius: 10px;
+}
+span#display-id,span#display-lastname,span#display-firstname,span#display-course,span#display-department {
+    font-weight: bold;
+    font-size: 17px;
 }
 
+@media (max-width: 1024px) {
+    .container {
+        padding: 50px 25px 10px 25px;
+    }
+    .ctu-background-modify {
+        width: 206vh;
+        height: 115vh;
+    }
+    .right-container {
+        width: 650px !important;
+    } 
+    .left-container {
+        padding: 18px 40px !important;
+        left: 0;
+    }
+    .ctu-background {
+        width: 355px !important;
+    
+}
 @media (max-width: 768px) {
+    .left-container {    
+        position: absolute !important;
+        height: 495px;
+        top: 31px;
+    }
+    .ctu-background {
+        top: -79px !important;
+    }
     .container {
         flex-direction: column;
         padding: 20px;
     }
-    .left-container,
     .right-container {
-        width: 100%;
-        margin-bottom: 20px;
+        width: 700px !important;
+        margin-bottom: 20px;  
+     	top: 11px;
     }
     .left-container button {
         font-size: 16px;
     }
     .logo {
-        width: 70px;
-        height: 70px;
+        width: 130px;
+        height: 130px;
+   	top: -42px;
+    }
+    .profile-image-container {
+        width: 160px;
+        height: 150px;
     }
     #profile-image {
-        width: 100px;
-        height: 100px;
+        width: 160px;
+        height: 150px;
         left: 10%;
         top: 90px;
+    }
+    .hamburger {
+        display: block; /* Show hamburger icon */
+        top: 45px;
+        left: 10px; 
+    }
+    .left-container.hidden {
+        display: none; /* Hide left-container when hidden class is added */
+    }
+    .search-forms {
+        top: 3%;
     }
 }
 
 @media (max-width: 480px) {
-    .left-container,
-    .right-container {
-        padding: 10px;
+    .left-container {
+        top: 55px;
     }
     .left-container input[type="text"] {
         font-size: 14px;
@@ -533,8 +507,8 @@ label {
         font-size: 14px;
     }
     .logo {
-        width: 60px;
-        height: 60px;
+        width: 100px;
+        height: 100px;
     }
     .tracker-heading {
         font-size: 24px;
@@ -544,9 +518,172 @@ label {
         font-size: 14px;
     }
     #profile-image {
-        width: 80px;
-        height: 80px;
+        width: 95px;
+        height: 95px;
         left: 10%;
         top: 70px;
     }
+    .right-container select {
+        top: 0;
+    }
+    .ctu-background {
+        top: -47px !important;
+    }
+
+}
+@media (max-width: 426px) {
+    .right-container {
+        width: 380px !important;
+        height:85vh;
+        margin-bottom: 2px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .vertical-line {
+        display: none;	
+    }
+    .text-beside-line {
+        left: 40px;
+        top: 215px;
+    }
+    .violation-container {
+        position: absolute !important;
+        left: 48px;
+        top: 370px;
+    }
+    .text-beside-line p {
+        margin-bottom: 10px !important;
+    }
+    .right-logo {
+       width: 60px;
+       height: 60px;
+       left: 20px;
+    }
+    .logo-text {
+       top: 40px;
+       left: 90px;
+    }
+    .profile-image-container {
+       width: 100px;
+       height: 100px;
+       top: 95px;
+       left: 175px;
+    }
+    select#light-offense{
+       left: 0;
+    }
+    select#offense {
+       left: 3px;
+    }
+    select#sanction {
+       left: -5px;
+    }
+    .offense-text {
+       top: 420px;
+       left: 48px;
+    }
+    #others-input-container {
+       margin-top: 5px;
+       position: relative;
+       left: 80px;
+    }
+    .sanction-text {
+       left: 48px;
+       top: 470px;
+    }
+    .logo {
+       width: 115px;
+       height: 115px;
+    }
+    .hamburger {
+       top: 70px;
+       left: 10px;
+    }
+    .right-buttons {
+       bottom: 10px;
+       right: 20px;
+    }
+    
+}
+
+@media (max-width: 375px) {
+    .text-beside-line {
+       left: 35px;
+    }
+    .right-container {
+       width: 360px !important;
+       padding: 15px;
+    }
+
+    .violation-container {
+        position: absolute !important;
+        left: 40px !important;
+        top: 355px;
+    } .offense-text {
+       top: 410px;
+       left: 40px;
+    }
+    .sanction-text {
+       left: 40px;
+       top: 465px;
+    }
+    .profile-image-container {     
+       left: 145px;
+    }
+}
+@media (max-width: 320px) {
+    .text-beside-line {
+       left: 25px;       
+    }
+    .right-container {
+       padding: 10px;
+       height: 570px; 
+    }    
+    .right-logo {
+       left: 25px;
+       top: 15px;
+        
+        }
+    .violation-container {
+       position: absolute !important;
+       left: 35px !important;
+       top: 355px;
+    } 
+    .offense-text {
+       top: 410px;
+       left: 35px;
+    }
+    .sanction-text {
+       left: 35px;
+       top: 465px;
+    }
+}
+}
+.modal-content-multiple-student {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 70%;
+}
+#student-list {
+    font-size: 16px;
+    padding: 20px;
+}
+#student-list div {
+    margin-bottom: 5px;
+    border-bottom: 1px solid #0000002e;
+    padding: 10px;
+    cursor: pointer;
+}
+#student-list div:hover {
+    background-color: #222d3961;
+
+}
+.modal-content-multiple-student h2{
+   margin-bottom: 15px;
+   text-align: center;
+
 }

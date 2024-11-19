@@ -21,7 +21,7 @@
     <?php endif ?>
 
     <div class="container">
-    <div class="warning-banner">
+    <div class="navigation">
     <div><img src="main/images/logo.png" class="nav-logo"></div>
         <div class="admin-button"><a href="#" id="admin-btn"><img src="main/images/admin-icon2.png" class="admin-icon"><span>Admin</span></a></div>
     </div>
@@ -70,6 +70,7 @@
             
             <button type="submit" class="login-btn" id="modal-btn">Login</button>
         </form>
+        <a href="reset_staff_password.php" id="forgotStaffPassword">Forgot Password?</a>
     </div>
 </div>
 
