@@ -687,3 +687,32 @@ span#display-id,span#display-lastname,span#display-firstname,span#display-course
    text-align: center;
 
 }
+/* Ensure left-container covers the entire view when shown */
+.left-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white; /* Adjust to your preferred background color */
+    z-index: 1000; /* Ensure it is above other elements */
+    transform: translateX(-100%); /* Hide it by default */
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Class to show left-container */
+.left-container.show {
+    transform: translateX(0);
+}
+
+/* Hide right-container in mobile view */
+.right-container {
+    display: none; /* Hidden by default in mobile */
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Class to show right-container */
+.right-container.show {
+    display: block;
+    opacity: 1;
+}
