@@ -1,6 +1,5 @@
 <?php
 // index.php
-require_once 'rfid_reader.php'; // Include RFID functionality
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,12 +17,6 @@ require_once 'rfid_reader.php'; // Include RFID functionality
         <div class="left-container">
             <img src="images/created.png" alt="CTU Logo" class="logo">
             <div class="search-forms">
-            <div class="rfid-section">
-                    <label for="rfid-status">RFID Scanner Status</label>
-                    <div id="rfid-status" class="status-indicator">Waiting for card...</div>
-                    <div id="last-scanned">Last scanned: Never</div>
-                </div>
-                <div class="separator"><div class="line1"></div> or <div class="line2"></div></div>
                 <label for="search-id">Search ID Number</label>
                 <input type="text" placeholder="Search ID Number" id="search-id">
                 <div class="separator"><div class="line1"></div> or <div class="line2"></div></div>
@@ -289,49 +282,6 @@ require_once 'rfid_reader.php'; // Include RFID functionality
                 event.target.style.display = 'none';
             }
         };
-// Add RFID scanning functionality
-function startRFIDScanning() {
-    setInterval(() => {
-        fetch('read_rfid.php')
-        .then(response => response.json())
-        .then(data => {
-            if (data.card_present) {
-                document.getElementById('rfid-status').textContent = 'Card detected!';
-                document.getElementById('rfid-status').className = 'status-indicator active';
-                document.getElementById('last-scanned').textContent = 'Last scanned: Just now';
-                
-                // Search for student using RFID
-                fetch('search_student.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: 'rfid=' + data.card_id
-                })
-                .then(response => response.json())
-                .then(studentData => {
-                    if (studentData.error) {
-                        alert(studentData.error);
-                    } else {
-                        displayStudentInfo(studentData);
-                    }
-                });
-            } else {
-                document.getElementById('rfid-status').textContent = 'Waiting for card...';
-                document.getElementById('rfid-status').className = 'status-indicator';
-            }
-        })
-        .catch(error => {
-            console.error('Error reading RFID:', error);
-            document.getElementById('rfid-status').textContent = 'Scanner error';
-            document.getElementById('rfid-status').className = 'status-indicator error';
-        });
-    }, 1000); // Check every second
-}
-
-// Start RFID scanning when page loads
-document.addEventListener('DOMContentLoaded', startRFIDScanning);
-
     </script>
 </body>
 </html>

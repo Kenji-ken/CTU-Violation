@@ -550,30 +550,3 @@ label {
         top: 70px;
     }
 }
-.rfid-section {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.status-indicator {
-    padding: 10px;
-    margin: 10px 0;
-    background: #f0f0f0;
-    border-radius: 5px;
-    color: #666;
-}
-
-.status-indicator.active {
-    background: #4CAF50;
-    color: white;
-}
-
-.status-indicator.error {
-    background: #f44336;
-    color: white;
-}
-
-#last-scanned {
-    font-size: 0.8em;
-    color: #666;
-}
