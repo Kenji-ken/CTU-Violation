@@ -23,7 +23,7 @@
     100% { opacity: 0.4; }
 }
 
-.warning-banner {
+.navigation {
     color: #ffffff;
     padding: 20px;
     text-align: center;
@@ -253,7 +253,7 @@
        width: 30px !important;
    }
 }
-@media (max-width: 375px) {
+@media (max-width: 376px) {
    img.nav-logo {
       width: 60px;
       height: 60px;
