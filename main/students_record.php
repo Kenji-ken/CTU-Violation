@@ -1,3 +1,10 @@
+<?php
+session_start();
+include './auth.php';
+
+checkAccess('admin'); // Restrict to admin only
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,117 +12,166 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Violation Tracking System</title>
     <link rel="stylesheet" href="Sstyles.css">
-    <link rel="stylesheet" href="pstyles.css">
-    <link rel="stylesheet" href="staff.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
 
     <style>
         .timer {
             text-align: center;
         }
+        .sort-search {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }    
+        
     </style>
 </head>
 <body>
     
+<a href="admin_logout.php">Logout</a>
+<!-- 
+<script>
+function logoutAdmin() {
+    // Send the logout request to the server to destroy the session
+    fetch('admin_logout.php')  // Make sure the URL is correct
+        .then(response => response.json())  // Parse the response from PHP
+        .then(data => {
+            if (data.status === 'logged_out') {
+                // Set the 'adminLoggedOut' flag in localStorage to notify other tabs
+                localStorage.setItem('adminLoggedOut', 'true');
+                
+                // Redirect to the login page (index.php or wherever your login page is)
+                window.location.href = 'index.php';  // Adjust the URL as needed
+            }
+        })
+        .catch(error => {
+            console.error('Error during logout:', error);
+        });
+}
+</script> -->
+
+
+
+
     <div class="container">
+
+    <div class="container">
+        <button class="hamburger" id="hamburger">&#9776;</button> <!-- Hamburger button -->
         <aside class="sidebar">
-            <h2>E-Logbook</h2>
+            <div class="sidebar-nav">
+                <img src="images/logo.png">
+                <h3>Violation Tracker</h3>
+            </div>
             <ul>
-            <a href="index.php" id="dashboardLink">Dashboard</a> <!-- Adjust this based on your actual link -->
-            <li><a href="#" class="active">COT Pending Records</a></li>
-            <li><a href="cot_history_records.php" class="active">COT History of Violation Records</a></li>
+                <li><a href="#" class="active">COT Pending Records</a></li>
+                <li><a href="cot_history_records.php" class="active">History</a></li>
                 <li><a href="#">COE Students Records</a></li>
             </ul>
         </aside>
 
 
-        <main class="content">
+        <main class="content" style="overflow-x: auto; max-height: 100vh;">>
             <h2>Student Records</h2>
-            <input type="text" id="search" placeholder="Search by ID or Last Name..." class="search-bar" />
-            <button id="searchBtn">Search</button>
-            <button id="cancelBtn">Cancel</button>
+            <div class="sort-search">
+                <div class="search-container">
+                    <input type="text" id="search" placeholder="Search by ID or Last Name..." class="search-bar" />
+                    <button id="cancelBtn" class="cancel-btn" onclick="document.getElementById('search').value=''">&times;</button>
+                    <button id="searchBtn">Search</button>
+                </div>
+
+                <div class="sorting-controls">
+                    <label for="sortDropdown">Sort by: </label>
+                    <select id="sortDropdown" onchange="handleSortDropdown()">
+                    <option value="">-Select-</option>
+                    <option value="0-number">ID</option>
+                    <option value="1-string">Last Name</option>
+                    <option value="6-date">Date and Time</option>
+                    </select>
+                </div>
+            </div>
 
             <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Last Name</th>
-                        <th>First Name</th>
-                        <th>Violation</th>
-                        <th>Offense</th>
-                        <th>Sanction</th>
-                        <th>Date and Time</th>
-                        <th>Course</th>
-                        <th>Department</th>
-                        <th>Image</th> <!-- Added Image Column -->
-                        <th>Actions</th>
-                        <th>Timer</th>
-                    </tr>
-                </thead>
-                <tbody id="student-table-body">
-    <?php
-        include 'formatTime.php'; // Adjust the path if needed
+              <thead>
+                <tr>
+                <th>ID</th>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>Violation</th>
+                <th>Offense</th>
+                <th>Sanction</th>
+                <th>Date and Time</th>
+                <th>Image</th> <!-- Added Image Column -->
+                <th>Actions</th>
+                <th>Timer</th>
+            </tr>
+        </thead>
+        <tbody id="student-table-body">
+            <?php
+            include 'formatTime.php'; // Adjust the path if needed
 
-        // Connect to the database
-        $servername = "127.0.0.1";
-        $username = "Kenji";
-        $password = "JamesRyan";
-        $dbname = "violation_tracker";
+            // Connect to the database
+            $servername = "127.0.0.1";
+            $username = "Kenji";
+            $password = "JamesRyan";
+            $dbname = "violation_tracker";
 
-        $conn = new mysqli($servername, $username, $password, $dbname);
+            $conn = new mysqli($servername, $username, $password, $dbname);
 
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        // Fetch all violations
-        $sql = "SELECT * FROM violations";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            // Output data of each row
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr data-id='" . htmlspecialchars($row['student_id']) . "'>";
-                echo "<td>" . htmlspecialchars($row['student_id']) . "</td>";
-                echo "<td class='lastname'>" . htmlspecialchars($row['lastname']) . "</td>";
-                echo "<td class='firstname'>" . htmlspecialchars($row['firstname']) . "</td>";
-
-                // Check if 'violation' key exists in the array
-                $violation = isset($row['violation']) ? htmlspecialchars($row['violation']) : 'N/A';
-                echo "<td class='violation'>" . $violation . "</td>";
-
-                // Fetch offense and sanction from the database
-                echo "<td class='offense'>" . htmlspecialchars($row['offense'] ?? 'N/A') . "</td>";
-                echo "<td class='sanction'>" . htmlspecialchars($row['sanction'] ?? 'N/A') . "</td>";
-
-                echo "<td class='timestamp'>" . htmlspecialchars($row['timestamp']) . "</td>";
-                echo "<td class='course'>" . htmlspecialchars($row['course'] ?? 'N/A') . "</td>";
-                echo "<td class='department'>" . htmlspecialchars($row['department'] ?? 'N/A') . "</td>";
-
-                // Handle image URL with fallback
-                $imageUrl = !empty($row['image_url']) ? htmlspecialchars($row['image_url']) : 'ID/Students/default.jpg'; // Replace with your default image path
-                echo "<td><img class='profile-image' src='" . $imageUrl . "' alt='Profile Image' width='50' /></td>";
-                
-                echo "<td>
-                        <button class='edit-btn' data-id='" . htmlspecialchars($row['student_id']) . "'>Edit</button>
-                        <button class='delete-btn' data-id='" . htmlspecialchars($row['student_id']) . "'>Delete</button>
-                      </td>";
-                echo "<td class='timer' data-id='".$row['id']."' data-time='".($row['end_time']).
-                "' data-cycle='".$row['cycle']."'>" . 
-                0 . 
-                "</td>"; // Timer Cell
-                echo "</tr>";
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
             }
-        } else {
-            echo "<tr><td colspan='12'>No records found</td></tr>";
-        }
 
-        $conn->close();
-    ?>
-</tbody>
-            </table>
+            // Fetch all violations
+            $sql = "SELECT * FROM violations";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                // Output data of each row
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr data-id='" . htmlspecialchars($row['student_id']) . "'>";
+                    echo "<td>" . htmlspecialchars($row['student_id']) . "</td>";
+                    echo "<td class='lastname'>" . htmlspecialchars($row['lastname']) . "</td>";
+                    echo "<td class='firstname'>" . htmlspecialchars($row['firstname']) . "</td>";
+
+                    // Check if 'violation' key exists in the array
+                    $violation = isset($row['violation']) ? htmlspecialchars($row['violation']) : 'N/A';
+                    echo "<td class='violation'>" . $violation . "</td>";
+
+                    // Fetch offense and sanction from the database
+                    echo "<td class='offense'>" . htmlspecialchars($row['offense'] ?? 'N/A') . "</td>";
+                    echo "<td class='sanction'>" . htmlspecialchars($row['sanction'] ?? 'N/A') . "</td>";
+
+                    echo "<td class='timestamp'>" . htmlspecialchars($row['timestamp']) . "</td>";
+                
+
+                    // Handle image URL with fallback
+                    $imageUrl = !empty($row['image_url']) ? htmlspecialchars($row['image_url']) : 'ID/Students/default.jpg'; // Replace with your default image path
+                    echo "<td><img class='profile-image' src='" . $imageUrl . "' alt='Profile Image' width='50' /></td>";
+
+                    echo "<td>
+                            <button class='edit-btn' data-id='" . htmlspecialchars($row['student_id']) . "'>View</button>
+                            <button class='delete-btn' data-id='" . htmlspecialchars($row['student_id']) . "'>Done</button>
+                          </td>";
+                    echo "<td class='timer' data-id='" . $row['id'] . "' data-time='" . ($row['end_time']) .
+                        "' data-cycle='" . $row['cycle'] . "'>" .
+                        0 .
+                        "</td>"; // Timer Cell
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='12'>No records found</td></tr>";
+            }
+
+            $conn->close();
+            ?>
+        </tbody>
+    </table>
+</div>
+
         </main>
     </div>
-
     <script>
            // Function to reload the page when cancel button is clicked
            document.getElementById('cancelBtn').addEventListener('click', function() {
@@ -125,7 +181,7 @@
         // Function to open the modal
         function openModal() {
             const modal = document.getElementById("profileModal");
-            modal.style.display = "block";
+            modal.style.display = "flex";
         }
 
         // Function to close the modal
@@ -267,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <span class="close">&times;</span>
             <div class="profile-container">
                 <div class="header">
-                    <h1>Student Profile</h1>
+                    <h3>Student Profile</h3>
                 </div>
                 <div class="profile-details">
                     <div class="profile-picture">
@@ -299,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </tr>
                     </table>
                 </div>
-                <div class="violation-history">
+                <div class="violation-history" style="overflow-x: auto; max-height: 200px; border: 1px solid #ccc;">
     <h3>Violation History</h3>
     <table>
         <thead>
@@ -403,6 +459,96 @@ if(mysqli_num_rows($result) > 0) {
 
 
     <script src="script.js"></script>
+
+    <script>
+    const searchInput = document.getElementById("search");
+const cancelBtn = document.getElementById("cancelBtn");
+
+// Initially hide the cancel button
+cancelBtn.style.display = "none";
+
+// Show the cancel button only when there is input
+searchInput.addEventListener("input", () => {
+    if (searchInput.value.trim() !== "") {
+        cancelBtn.style.display = "block";
+    } else {
+        cancelBtn.style.display = "none";
+    }
+});
+
+// Clear the input field when cancel button is clicked
+function clearSearch() {
+    searchInput.value = "";
+    cancelBtn.style.display = "none";
+    searchInput.focus();
+}
+ </script>
+
+<script>
+//search-button == enter-key
+document.addEventListener('keydown', function(event) {
+    // Check if the Enter key is pressed
+    if (event.key === 'Enter') {
+        // Trigger the "Next" button's click event
+        document.getElementById('searchBtn').click();
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.querySelector('.sidebar');
+
+    // Toggle sidebar visibility
+    hamburger.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+
+    // Close sidebar when clicking outside of it (optional)
+    window.addEventListener('click', (event) => {
+        if (!sidebar.contains(event.target) && !hamburger.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
+    });
+});
+
+</script>
+<script>
+ function logout() {
+    // Optional: Send a logout request to PHP
+    window.location.href = 'logout.php'; // Redirect to logout.php
+}
+// Listen for logout event across tabs
+window.addEventListener('storage', function(e) {
+    if (e.key === 'logout' && e.newValue === 'true') {
+        window.location.href = '../index.php'; // Redirect to login page
+    }
+});
+
+</script>
+<script>
+// Function to handle logout synchronization across tabs
+function syncLogoutAcrossTabs() {
+    // Listen for changes to `localStorage` (logout trigger)
+    window.addEventListener('storage', function(event) {
+        if (event.key === 'adminLoggedOut' && event.newValue === 'true') {
+            // Redirect to the login page when logout is triggered in another tab
+            window.location.href = 'index.php'; // Make sure this redirects to the login page
+        }
+    });
+
+    // Check if the admin has logged out (based on a flag in localStorage)
+    if (localStorage.getItem('adminLoggedOut') === 'true') {
+        // Remove the flag to prevent redundant logout
+        localStorage.removeItem('adminLoggedOut');
+        // Redirect to login page immediately
+        window.location.href = 'index.php'; // Adjust the URL as needed
+    }
+}
+
+// Call the function when the page loads to sync the logout status if needed
+syncLogoutAcrossTabs();
+</script>
 
 </body>
 </html>

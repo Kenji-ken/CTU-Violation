@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COT History of Violation Records</title>
     <link rel="stylesheet" href="Sstyles.css">
-    <link rel="stylesheet" href="pstyles.css">
-    <link rel="stylesheet" href="staff.css">
+
+    
+
 </head>
 <body>
     
     <div class="container">
         <aside class="sidebar">
-            <h2>E-Logbook</h2>
+            <div class="sidebar-nav">
+                <img src="images/logo.png">
+                <h3>VIolation Tracker</h3>
+            </div>
             <ul>
                 <a href="index.php" id="dashboardLink">Dashboard</a>
                 <li><a href="students_record.php">COT Pending Records</a></li>
@@ -26,26 +30,24 @@
 
             <!-- Search Bar -->
             <div class="search-container">
-                 <input type="text" id="search" placeholder="Search by ID or Last Name..." class="search-bar" />
-                 <button id="searchBtn">Search</button>
-            <button id="cancelBtn">Cancel</button>
-
+                <input type="text" id="search" placeholder="Search by ID or Last Name..." class="search-bar" />
+                <button id="cancelBtn" class="cancel-btn" onclick="document.getElementById('search').value=''">&times;</button>
+                <button id="searchBtn">Search</button>
             </div>
 
+            <div style="overflow-x: auto; max-height: 400px; border: 1px solid #ccc;">
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Last Name</th>
-                        <th>First Name</th>
-                        <th>Violation</th>
-                        <th>Offense</th>
-                        <th>Sanction</th>
-                        <th>Date and Time</th>
-                        <th>Course</th>
-                        <th>Department</th>
-                        <th>Image</th>
-                        <th>Actions</th>
+                    <th>ID</th>
+                    <th>Lastname</th>
+                    <th>Firstname</th>
+                    <th>Violation</th>
+                    <th>Offense</th>
+                    <th>Sanction</th>
+                    <th>Date and Time</th>
+                    <th>Image</th> <!-- Added Image Column -->
+                    <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="history-table-body">
@@ -73,8 +75,6 @@
                             echo "<td class='offense'>" . htmlspecialchars($row['offense']) . "</td>";
                             echo "<td class='sanction'>" . htmlspecialchars($row['sanction']) . "</td>";
                             echo "<td class='timestamp'>" . htmlspecialchars($row['timestamp']) . "</td>";
-                            echo "<td class='course'>" . htmlspecialchars($row['course']) . "</td>";
-                            echo "<td class='department'>" . htmlspecialchars($row['department']) . "</td>";
                             echo "<td><img class='profile-image' src='" . htmlspecialchars($row['profile_image']) . "' alt='Profile Image' width='50' /></td>";
                             echo "<td>
                             <button class='edit-btn' data-id='" . htmlspecialchars($row['student_id']) . "'>Edit</button>
@@ -90,6 +90,7 @@
                 ?>
                 </tbody>
             </table>
+            </div>
         </main>
     </div>
     <script>
@@ -232,8 +233,8 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
     <!-- Modal Structure -->
-    <div id="profileModal" class="modal">
-        <div class="modal-content">
+    <div id="profileModal" class="modal" >
+        <div class="modal-content" style="transform: translate(31%, 25%); position: fixed;">
             <span class="close">&times;</span>
             <div class="profile-container">
                 <div class="header">
@@ -326,10 +327,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+    const searchInput = document.getElementById("search");
+const cancelBtn = document.getElementById("cancelBtn");
+
+// Initially hide the cancel button
+cancelBtn.style.display = "none";
+
+// Show the cancel button only when there is input
+searchInput.addEventListener("input", () => {
+    if (searchInput.value.trim() !== "") {
+        cancelBtn.style.display = "block";
+    } else {
+        cancelBtn.style.display = "none";
+    }
+});
+
+// Clear the input field when cancel button is clicked
+function clearSearch() {
+    searchInput.value = "";
+    cancelBtn.style.display = "none";
+    searchInput.focus();
+}
+
 </script>
 
 
 <script src="history.js"></script>
+
+<script>
+//search-button == enter-key
+document.addEventListener('keydown', function(event) {
+    // Check if the Enter key is pressed
+    if (event.key === 'Enter') {
+        // Trigger the "Next" button's click event
+        document.getElementById('searchBtn').click();
+    }
+});
+</script>
 
 </body>
 </html>

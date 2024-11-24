@@ -1,4 +1,9 @@
-<?php session_start() ?>
+<?php
+session_start();
+include 'config.php'; // Database connection
+
+?>
+
 <!--mao nani -->
 <!DOCTYPE html>
 <html lang="en">

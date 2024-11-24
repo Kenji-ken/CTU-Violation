@@ -56,9 +56,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error_message)) {
             // Verify the password
             if (password_verify($password, $hashed_password)) {
                 $_SESSION['username'] = $username;
+
+                $_SESSION['admin'] = [
+                        'username' => $username,
+                        'role' => 'admin',
+                    ];
+
+                $_SESSION['logged_in'] = true;
                 $_SESSION['role'] = 'admin';
                 header("Location: main/students_record.php");
-                exit;
+                exit();
             }
         }
 

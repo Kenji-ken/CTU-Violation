@@ -1,6 +1,10 @@
 <?php
-// index.php
+session_start();
+
+include './auth.php';
+checkAccess('staff'); // Restrict to staff only
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +14,15 @@
     <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file -->
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+       
+    </style>
 </head>
 <body>
+    
+<a href="staff_logout.php">Logout</a>
+
     <div class="container">
     <div id="hamburger-icon" class="hamburger">
     &#9776; <!-- Unicode hamburger icon -->
@@ -52,6 +63,7 @@
                 <p>Department: <span id="display-department"></span></p>
              </div>
           </div>   
+          <div class="violation-inputs-info">
           <div class="violation-container">           
              <div class="violation-text">Violation:
                 <select id="light-offense" onchange="toggleOthersInput()">
@@ -81,6 +93,7 @@
               <option value="suspension">Suspension</option>
            </select> 
          </div>
+         </div>
  	 <div class="right-buttons">
            <button class="cancel-button">Cancel</button>
            <button class="submit-button">Submit</button>
@@ -99,12 +112,23 @@
     </div>
 
     <!-- Modal for violation report -->
-    <div id="violationModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Violation report has been submitted.</p>
+    <div id="violationModal" class="modal-message">
+    <div class="modal-message-content">
+    <span class="close">&times;</span>
+        <div class="icon-container">
+            <i class="fa fa-check-circle"></i>
         </div>
+            <p>Violation report has been submitted.</p>
     </div>
+   
+</div>
+
+<div id="alertModal" class="modal-message">
+    <div class="modal-message-content">
+        <p id="alertMessage"></p>
+        <button id="closeAlertModal">OK</button>
+    </div>
+</div>
 
     <script>
         document.getElementById('next-button').addEventListener('click', function() {
@@ -114,44 +138,50 @@
             if (searchID) {
                 // Perform search by ID
                 fetch('search_student.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: 'search-id=' + searchID
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        alert(data.error);
-                    } else {
-                        displayStudentInfo(data);
-                    }
-                });
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: 'search-id=' + searchID
+})
+.then(response => response.json())
+.then(data => {
+    if (data.error) {
+        showAlert(data.error); // Show modal for "No student found"
+    } else {
+        displayStudentInfo(data);
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+    showAlert('An error occurred. Please try again.');
+});
+
             } else if (searchLastname) {
                 // Perform search by Lastname
                 fetch('search_student.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: 'search-lastname=' + searchLastname
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        alert(data.error);
-                    } else {
-                        if (Array.isArray(data)) {
-                            displayMultipleStudents(data);
-                        } else {
-                            displayStudentInfo(data);
-                        }
-                    }
-                });
-            } else {
-                alert('Please enter either an ID number or a Lastname.');
-            }
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: 'search-lastname=' + searchLastname
+})
+.then(response => response.json())
+.then(data => {
+    if (data.error) {
+        showAlert(data.error); // Show modal for "No student found"
+    } else if (Array.isArray(data)) {
+        displayMultipleStudents(data);
+    } else {
+        displayStudentInfo(data);
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+    showAlert('An error occurred. Please try again.');
+});
+
+            } 
         });
 
         function displayStudentInfo(data) {
@@ -207,7 +237,6 @@ function toggleOthersInput() {
             // Get value from the others input if "Others" is selected
             var othersViolation = document.getElementById('others-violation').value;
             if (violation === 'others' && othersViolation.trim() === '') {
-                alert('Please specify the violation if "Others" is selected.');
                 return;
             }
 
@@ -217,7 +246,6 @@ function toggleOthersInput() {
             var studentDepartment = document.getElementById('display-department').textContent;
 
             if (!studentID || !violation || !offense || !sanction || !studentCourse || !studentDepartment) {
-                alert('Please fill all the fields.');
                 return;
             }
 
@@ -243,14 +271,13 @@ function toggleOthersInput() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    document.getElementById("violationModal").style.display = "block";
+                    document.getElementById("violationModal").style.display = "flex";
                 } else {
                     alert('Failed to record violation: ' + (data.error || 'Unknown error'));
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('An error occurred. Please check the console for details.');
             });
         });
 
@@ -289,6 +316,7 @@ function toggleOthersInput() {
                 event.target.style.display = 'none';
             }
         };
+
  const leftContainer = document.getElementById("left-container");
     const hamburgerIcon = document.getElementById("hamburger-icon");
     const nextButton = document.getElementById("next-button");
@@ -342,7 +370,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (searchID.value.trim() || searchLastname.value.trim()) {
             rightContainer.classList.add('show');
         } else {
-            alert('Please enter either an ID number or a Lastname.');
+         
         }
     }
 
@@ -358,7 +386,84 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+// Function to show the alert modal
+function showAlert(message) {
+    const alertModal = document.getElementById('alertModal');
+    const alertMessage = document.getElementById('alertMessage');
+    alertMessage.textContent = message;
+    alertModal.style.display = 'flex';
+}
+
+// Close alert modal
+document.getElementById('closeAlertModal').addEventListener('click', function () {
+    document.getElementById('alertModal').style.display = 'none';
+});
+
+// Modify the submit button's functionality to hide the modal after 2 seconds
+document.querySelector('.submit-button').addEventListener('click', function () {
+    const violationModal = document.getElementById("violationModal");
+    const studentID = document.getElementById('display-id').textContent;
+    const studentLastname = document.getElementById('display-lastname').textContent;
+    const studentFirstname = document.getElementById('display-firstname').textContent;
+    const violation = document.getElementById('light-offense').value;
+    const othersViolation = document.getElementById('others-violation').value;
+    const offense = document.getElementById('offense').value;
+    const sanction = document.getElementById('sanction').value;
+
+    if (!studentID || !violation || !offense || !sanction) {
+        showAlert('Please fill all the fields.');
+        return;
+    }
+
+    if (violation === 'others' && !othersViolation.trim()) {
+        showAlert('Please specify the violation if "Others" is selected.');
+        return;
+    }
+
+    fetch('record_violation.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `student_id=${studentID}&lastname=${studentLastname}&firstname=${studentFirstname}&violation=${violation === 'others' ? othersViolation : violation}&offense=${offense}&sanction=${sanction}`,
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                violationModal.style.display = 'flex';
+                setTimeout(() => {
+                    violationModal.style.display = 'none';
+                }, 2000); // Auto-hide modal after 2 seconds
+            
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showAlert('An error occurred. Please check the console for details.');
+        });
+});
+
+// Replace alert for empty search inputs
+document.getElementById('next-button').addEventListener('click', function () {
+    const searchID = document.getElementById('search-id').value;
+    const searchLastname = document.getElementById('search-lastname').value;
+
+    if (!searchID && !searchLastname) {
+        showAlert('Please enter either an ID number or a Lastname.');
+        return;
+    }
+
+    // Add search logic here
+});
     
-    </script>    
+    </script>
+  <script>
+  function logout() {
+    // Optional: Send a logout request to PHP
+    window.location.href = 'logout.php'; // Redirect to logout.php
+}
+</script>
+
+
 </body>
 </html>

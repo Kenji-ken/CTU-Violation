@@ -334,6 +334,6 @@ unset($_SESSION["old_password"]);
 unset($_SESSION["new_password"]);
 unset($_SESSION["confirm_password"]);
 
-if (time() - $_SESSION['last_staff_attempt_time'] < $lockout_time)
+if (isset($_SESSION['last_staff_attempt_time']) && time() - $_SESSION['last_staff_attempt_time'] < $lockout_time)
     unset($_SESSION["error_message"]);
 ?>

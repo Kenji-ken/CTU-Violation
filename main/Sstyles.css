@@ -1,35 +1,75 @@
 /* Layout */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
 .container {
     display: flex;
+    width: 100%;
+    height: 100%;
+}
+.cancel-btn {
+    position: absolute;
+    right: 110px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+    display: none;
 }
 
+.cancel-btn:hover {
+    color: #000; /* Change color on hover */
+}
 .sidebar {
     width: 20%;
-    background-color: #34495e;
-    color: white;
+    background-color: #161E26;
+    color: #fff;
     padding: 20px;
+    min-height: 565px;
+    
+}
+.sidebar-nav {
+    display: flex;
+    align-items: center;
+}
+.sidebar .sidebar-nav img {
+    width: 55px;
+    height: 55px;
 }
 
 .sidebar h2 {
     margin: 0 0 20px;
+    font-family: 'Montserrat';
 }
 
 .sidebar ul {
     list-style-type: none;
-    padding: 0;
+    padding: 10px;
+    position: relative;
+    top: 40px;
 }
 
 .sidebar ul li {
-    margin: 15px 0;
+    padding: 5px;
+    height: 35px;
 }
 
 .sidebar ul li a {
-    color: white;
+    color: #fff;
     text-decoration: none;
+    font-family: 'Montserrat';
 }
-
-.sidebar ul li a.active {
-    font-weight: bold;
+.sidebar ul li:hover {
+    background-color: #007bff7e; /* Change background color on hover */
+    padding: 5px;
+    border-radius: 20px;
+    font-size: 15px;
 }
 
 .content {
@@ -38,37 +78,48 @@
 }
 
 h2 {
-    color: #2c3e50;
+    text-align: center;
+    font-family: 'Montserrat';
+    font-size: 2.2rem;
+    color: #161e26;
+    margin-bottom: 25px;
 }
-
+.search-container {
+    text-align: right;
+    position: relative;
+    display: inline-block;
+    
+}
 .search-bar {
+    width: 300px;
     padding: 10px;
-    width: 100%;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
+    margin: 10px 0;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 5px;
+    font-size: 1rem;
+    outline: none;
+    font-weight: 800;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    color: #000;
+    background: #f5f5f5;
 }
-
-table, th, td {
-    border: 1px solid #ccc;
+table tr {
+    border-bottom: 1px solid;
 }
+th.student-name {
+    width: 200px;
 
+}
 th, td {
-    padding: 10px;
+    padding: 5px;
     text-align: left;
-}
-
-th {
-    background-color: #121212;
-}
-
-td {
-    background-color: #121212;
+    font-family: 'Montserrat';
 }
 
 .actions button {
@@ -81,11 +132,16 @@ td {
     background-color: #11a0ff;
     color: rgb(255, 255, 255);
     margin-right: 5px;
+    border: none;
+    padding: 5px;
+    margin-bottom: 2px;
 }
 
 .delete-btn {
     background-color: #e74c3c;
     color: white;
+    border: none;
+    padding: 5px;
 }
 .timer {
     text-align: center;
@@ -100,7 +156,7 @@ td {
 }
 
 body {
-    background-color: #121212;
+    background-color: #d8e1e7;
     color: #f8f8f8;
     display: flex;
     flex-direction: column;
@@ -109,8 +165,30 @@ body {
     min-height: 100vh;
     overflow: hidden;
     position: relative;
+    font-family: 'Montserrat';
 }
 
+@media print {
+    /* Ensure the body does not have a background when printing */
+    body {
+        background: none;
+        color: #000; /* Ensure text is visible */
+    }
+
+    .modal {
+        background-color: #F0F0F0; /* Specify the modal's background color */
+        -webkit-print-color-adjust: exact; /* Ensure the background color is printed */
+        print-color-adjust: exact; /* Ensure the background color is printed */
+        display: block; /* Ensure the modal is visible */
+    }
+
+    /* Hide the buttons when printing */
+    .print-button,
+    .cancel-button,
+    .no-print {
+        display: none !important; /* Use !important to ensure buttons are hidden */
+    }
+}
 .background-overlay {
     position: absolute;
     top: 0;
@@ -119,7 +197,6 @@ body {
     height: 100%;
     background: radial-gradient(circle, rgba(255,0,0,0.15), transparent);
     z-index: -1;
-    animation: pulse-bg 3s infinite;
 }
 
 @keyframes pulse-bg {
@@ -131,14 +208,12 @@ body {
 .warning-banner {
     background-color: #ff4d4d;
     color: #ffffff;
-    padding: 10px 20px;
     font-weight: bold;
     text-align: center;
     width: 100%;
     position: fixed;
     top: 0;
     z-index: 999;
-    animation: flash 1s ease-in-out infinite;
 }
 
 @keyframes flash {
@@ -151,18 +226,39 @@ body {
 }
 
 .content {
-    text-align: center;
-    margin-top: 80px;
     z-index: 10;
     position: relative;
-    padding: 0 20px; /* Add padding for smaller screens */
 }
 
 h1 {
     font-size: 4rem;
     color: #ff4d4d;
-    animation: fade-in 2s ease-in-out infinite;
 }
+
+.profile-picture {
+    width: 130px;
+    height: 130px;
+}
+img#student-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 80px;
+    object-fit: cover;
+}
+.profile-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profile-info {
+    text-align: left;
+    margin-left: 20px;
+}
+.profile-info p {
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
 
 @keyframes fade-in {
     0% {
@@ -173,12 +269,6 @@ h1 {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    animation: slide-in 1.5s ease-in-out;
 }
 
 @keyframes slide-in {
@@ -192,12 +282,16 @@ p {
     }
 }
 
+.buttons .print {
+    background-color: #00aaff;
+    color: white;
+}
 .button {
     text-decoration: none;
     padding: 15px 30px;
     background-color: #ff4d4d; /* Matching color */
     color: #ffffff;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 1.2rem;
     display: inline-block;
     transition: background-color 0.3s ease;
@@ -208,62 +302,6 @@ p {
 .button:hover {
     background-color: #d43c3c;
     transform: scale(1.05);
-    animation: flash 1s ease-in-out infinite;
-}
-
-.pulse {
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.glitch-text {
-    font-size: 10rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #ff4d4d;
-    text-shadow: 0 0 5px #ffffff;
-    overflow: hidden;
-    animation: glitch 2s infinite;
-}
-
-@keyframes glitch {
-    0% {
-        text-shadow: 0px 2px 1px rgba(255, 255, 255, 0.1);
-        transform: translate(-50%, -50%);
-    }
-    20% {
-        text-shadow: 5px 2px 1px rgba(255, 0, 0, 0.5);
-        transform: translate(-52%, -48%);
-    }
-    40% {
-        text-shadow: -5px 2px 1px rgba(0, 255, 0, 0.5);
-        transform: translate(-48%, -52%);
-    }
-    60% {
-        text-shadow: 5px -2px 1px rgba(0, 0, 255, 0.5);
-        transform: translate(-50%, -50%);
-    }
-    80% {
-        text-shadow: -5px -2px 1px rgba(255, 255, 0, 0.5);
-        transform: translate(-50%, -50%);
-    }
-    100% {
-        text-shadow: 0px 2px 1px rgba(255, 255, 255, 0.1);
-        transform: translate(-50%, -50%);
-    }
 }
 
 /* Warning Icon Overlay Styles */
@@ -308,7 +346,6 @@ p {
     display: inline-block;
     transition: background-color 0.3s ease;
     margin-top: 10px; /* Space between buttons */
-    animation: pulse 1.5s infinite;
 }
 
 .admin-button:hover {
@@ -323,10 +360,6 @@ p {
 
     p {
         font-size: 1rem;
-    }
-
-    .glitch-text {
-        font-size: 6rem;
     }
 
     .button, .admin-button {
@@ -368,6 +401,9 @@ p {
     .warning-overlay p {
         font-size: 1rem;
     }
+    main.content {
+        width: 405px;
+    }
 }
 .button-group {
     display: flex;
@@ -390,7 +426,6 @@ p {
     background-color: rgba(0, 0, 0, 0.8); /* Slightly darker background */
     justify-content: center;
     align-items: center;
-    animation: fadeInModal 0.8s ease-in-out;
 }
 
 @keyframes fadeInModal {
@@ -405,106 +440,42 @@ p {
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    width: 400px;
+    width: 785px;
     box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
     position: relative;
-    animation: glitch-modal 1.5s infinite;
-}
-
-@keyframes glitch-modal {
-    0%, 100% {
-        transform: translate(0);
-        filter: hue-rotate(0);
-    }
-    10% {
-        transform: translate(-1px, -1px);
-        filter: hue-rotate(10deg);
-    }
-    20% {
-        transform: translate(1px, 1px);
-        filter: hue-rotate(20deg);
-    }
-    30% {
-        transform: translate(-2px, 2px);
-        filter: hue-rotate(30deg);
-    }
-    40% {
-        transform: translate(2px, -2px);
-        filter: hue-rotate(40deg);
-    }
-    50% {
-        transform: translate(0);
-        filter: hue-rotate(0);
-    }
 }
 
 .school-logo {
     width: 70px;
     margin-bottom: 20px;
-    animation: pulse-logo 1.5s infinite;
-}
-
-@keyframes pulse-logo {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-}
-
-h2 {
-    font-size: 2.5rem;
-    color: #ff4d4d;
-    margin-bottom: 10px;
-    text-shadow: 0px 0px 5px rgba(255, 77, 77, 0.8);
-    
 }
 
 h3 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: white;
     letter-spacing: 0.5px;
-    animation: glitch-heading 2s infinite;
 }
 
-/* Glitch Effect for Heading */
-@keyframes glitch-heading {
-    0% {
-        text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.5), -2px -2px 0 rgba(255, 77, 77, 0.7);
-    }
-    25% {
-        text-shadow: -2px 0 4px rgba(255, 255, 255, 0.5), 4px 0 8px rgba(255, 77, 77, 0.7);
-    }
-    50% {
-        text-shadow: 4px 0 2px rgba(255, 255, 255, 0.5), -2px 0 5px rgba(255, 77, 77, 0.7);
-    }
-    75% {
-        text-shadow: 0 4px 5px rgba(255, 255, 255, 0.5), 0 -4px 5px rgba(255, 77, 77, 0.7);
-    }
-    100% {
-        text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.5), -2px -2px 0 rgba(255, 77, 77, 0.7);
-    }
-}
-
-input[type="text"],
-input[type="password"] {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+button#searchBtn  {
+    padding: 10px 20px;
+    border: none;
     border-radius: 5px;
-    font-size: 1rem;
-    outline: none;
-    transition: border 0.3s ease;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    color: #fff;
+    background-color: #fa9800;
 }
-
-input[type="text"]:focus,
-input[type="password"]:focus {
-    border: 1px solid #ff4d4d;
-    box-shadow: 0px 0px 10px rgba(255, 77, 77, 0.8);
+button#cancelBtn {
+    padding: 5px 13px;
+    border: none;
+    border-radius: 34px;
+    cursor: pointer;
+    margin-left: 5px;
+    font-weight: bold;
+    font-size: 25px;
+    color: #fff;
+    background-color: #00000059;
 }
 
 .login-btn {
@@ -515,8 +486,6 @@ input[type="password"]:focus {
     border-radius: 5px;
     font-size: 1.2rem;
     cursor: pointer;
-    animation: pulse-btn 1.5s infinite;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .login-btn:hover {
@@ -552,27 +521,6 @@ input[type="password"]:focus {
 #closeStaff:hover {
     color: #d43c3c;
 }
-@media print {
-    /* Ensure the body does not have a background when printing */
-    body {
-        background: none;
-        color: #000; /* Ensure text is visible */
-    }
-
-    .modal {
-        background-color: #F0F0F0; /* Specify the modal's background color */
-        -webkit-print-color-adjust: exact; /* Ensure the background color is printed */
-        print-color-adjust: exact; /* Ensure the background color is printed */
-        display: block; /* Ensure the modal is visible */
-    }
-
-    /* Hide the buttons when printing */
-    .print-button,
-    .cancel-button,
-    .no-print {
-        display: none !important; /* Use !important to ensure buttons are hidden */
-    }
-}
 /* Style the Dashboard link like normal text */
 a#dashboardLink {
     color: inherit; /* Inherit color from parent, so it won't be blue */
@@ -586,3 +534,74 @@ a#dashboardLink:hover {
     color: #000; /* Adjust to any color you want for hover */
     text-decoration: none; /* Keep underline off on hover */
 }
+
+.sorting-controls {
+    text-align: left;
+    color: #000;
+}
+
+.sorting-controls select {
+    padding: 8px 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: #161E26;
+    color: #fff;
+}
+
+.sorting-controls label {
+    font-weight: bold;
+    margin-right: 3px;
+}
+.violation-history table {
+   font-size: 13px;
+}
+.violation-section th, td {
+    padding: 5px;
+}
+table tr td input{
+    border: none;
+}
+
+.hamburger {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    background: #fa980073;
+    border: none;
+    border-radius: 5px;
+    padding: 3px 6px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* Show hamburger on small screens */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    /* Sidebar hidden by default on small screens */
+    .sidebar {
+        transform: translateX(-100%); /* Move sidebar off-screen */
+        transition: transform 0.3s ease-in-out;
+        position: fixed;
+        height: 100vh;
+        width: 250px;
+        background: #161E26;/* Match your sidebar's background color */
+        z-index: 999;
+    }
+
+    /* Show sidebar when toggled */
+    .sidebar.active {
+        transform: translateX(0); /* Slide sidebar into view */
+    }
+
+    .content {
+        margin-left: 0; /* Reset margin when sidebar is hidden */
+    }
+}
+    

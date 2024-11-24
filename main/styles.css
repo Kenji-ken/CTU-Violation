@@ -170,27 +170,20 @@ body {
 
 }
 .profile-image-container {
-    width: 180px;
+    width: 170px;
     position: absolute;
     top: 115px;
-    left: 70px;
+    left: 65px;
 }
 
-/* Vertical line */
-.vertical-line {
-    width: 1px;
-    height: 170px;
-    background-color: #000000;
-    position: absolute;
-    top: 110px;
-    left: 265px;
-}
 
 /* Text beside the vertical line */
 .text-beside-line {
     position: absolute;
     top: 115px;
-    left: 285px;
+    left: 255px;
+    border-left: 1.5px solid;
+    padding: 5px 15px;
 }
 
 .text-beside-line p {
@@ -198,16 +191,15 @@ body {
     margin-bottom: 15px;
 }
 .offense-text {
-    position: absolute;
-    top: 310px;
+    position: relative;
     font-size: 17px;
-    left: 75px;  
+    left: 60px;
 }
 .sanction-text {
-    position: absolute;
-    top: 390px;
+    position: relative;
+    top: 30px;
     font-size: 17px;
-    left: 75px;  
+    left: 60px;
 }
 select#offense {
     left: -75px;
@@ -269,7 +261,6 @@ select#offense {
 /* Violation text */
 .violation-container {
     position: relative;
-    top: 288px;
     left: 350px;
     height: 0;
 }
@@ -424,6 +415,11 @@ span#display-id,span#display-lastname,span#display-firstname,span#display-course
     font-weight: bold;
     font-size: 17px;
 }
+.violation-inputs-info {
+    position: relative;
+    top: 270px;
+    height: 0;
+}
 
 @media (max-width: 1024px) {
     .container {
@@ -442,6 +438,7 @@ span#display-id,span#display-lastname,span#display-firstname,span#display-course
     }
     .ctu-background {
         width: 355px !important;
+    }
     
 }
 @media (max-width: 768px) {
@@ -529,7 +526,7 @@ span#display-id,span#display-lastname,span#display-firstname,span#display-course
     .ctu-background {
         top: -47px !important;
     }
-
+    
 }
 @media (max-width: 426px) {
     .right-container {
@@ -539,6 +536,14 @@ span#display-id,span#display-lastname,span#display-firstname,span#display-course
         padding: 20px;
         display: flex;
         flex-direction: column;
+        top: 35px;
+    }
+    .left-container {
+        width: 100%;
+        padding: 0 !important;
+    }
+    .ctu-background {
+        width: 100% !important;
     }
     
     .vertical-line {
@@ -547,9 +552,9 @@ span#display-id,span#display-lastname,span#display-firstname,span#display-course
     .text-beside-line {
         left: 40px;
         top: 215px;
+        border-left: none;
     }
     .violation-container {
-        position: absolute !important;
         left: 48px;
         top: 370px;
     }
@@ -591,7 +596,7 @@ span#display-id,span#display-lastname,span#display-firstname,span#display-course
     }
     .sanction-text {
        left: 48px;
-       top: 470px;
+       top: 425px;
     }
     .logo {
        width: 115px;
@@ -599,16 +604,24 @@ span#display-id,span#display-lastname,span#display-firstname,span#display-course
     }
     .hamburger {
        top: 70px;
-       left: 10px;
+       left: 370px;
     }
     .right-buttons {
        bottom: 10px;
        right: 20px;
     }
-    
+    .search-forms {
+        top: 3%;
+        width: 300px;
+    }
+    .violation-inputs-info {
+        top: -10px;
+        position: relative;
+        left: -17px;
+    }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 376px) {
     .text-beside-line {
        left: 35px;
     }
@@ -616,21 +629,49 @@ span#display-id,span#display-lastname,span#display-firstname,span#display-course
        width: 360px !important;
        padding: 15px;
     }
-
-    .violation-container {
-        position: absolute !important;
-        left: 40px !important;
-        top: 355px;
-    } .offense-text {
-       top: 410px;
-       left: 40px;
+    .left-container {
+        width: 400px;
+        height: 100% !important;
+        padding: 0 !important;
     }
-    .sanction-text {
-       left: 40px;
-       top: 465px;
+    .ctu-background {
+        top: 63px !important;
+        width: 100% !important;
+        height: 220px !important;
+        
+    }
+    .ctu-background img {
+        height: 100%;
+    }
+    .left-container button {
+        font-size: 17px;
+    
+    
     }
     .profile-image-container {     
        left: 145px;
+    }
+    .search-forms {
+        top: 6%;
+        width: 280px;
+    }
+    .logo {
+        width: 120px;
+        height: 120px;
+        top: -25px;
+    }
+    .left-container input[type="text"] {
+        padding: 10px ;
+        height: 30px;
+    }
+    .hamburger {
+        top: 75px;
+        left: 340px;
+    }
+    .violation-inputs-info {
+        top: 0;
+        position: relative;
+        left: -15px;
     }
 }
 @media (max-width: 320px) {
@@ -646,8 +687,10 @@ span#display-id,span#display-lastname,span#display-firstname,span#display-course
        top: 15px;
         
         }
+    .violation-inputs-info {
+       top: 15px;
+    }
     .violation-container {
-       position: absolute !important;
        left: 35px !important;
        top: 355px;
     } 
@@ -657,9 +700,8 @@ span#display-id,span#display-lastname,span#display-firstname,span#display-course
     }
     .sanction-text {
        left: 35px;
-       top: 465px;
+       top: 45px;
     }
-}
 }
 .modal-content-multiple-student {
     background-color: #fefefe;
@@ -685,5 +727,67 @@ span#display-id,span#display-lastname,span#display-firstname,span#display-course
 .modal-content-multiple-student h2{
    margin-bottom: 15px;
    text-align: center;
+}
 
+.modal-message {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal content for violation message */
+.modal-message-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: fadeIn 0.5s ease-in-out forwards; /* Fade-in effect */
+}
+
+/* Icon container for check icon */
+.icon-container {
+    font-size: 50px;
+    color: #28a745; /* Green for success */
+    margin-bottom: 15px;
+}
+
+/* Modal text styling */
+.modal-message-content p {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+button#closeAlertModal {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 5px;
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: 20px;
+    background-color: #fa9800;
+    color: #000;
 }

@@ -25,65 +25,47 @@ $max_attempts = 5;
 $lockout_time = 30; // 30 seconds lockout
 
 // Check if the account is locked
-if ($_SESSION['staff_login_attempts'] >= $max_attempts) {
-    if (time() - $_SESSION['last_staff_attempt_time'] < $lockout_time) {
-        $error_message = "Too many failed attempts. Please try again later.";
-        $_SESSION["error_message"] = $error_message;
-
-        header("Location: /CTU-Violation/reset_staff_password.php");
-    } else {
-        $_SESSION['staff_login_attempts'] = 0; // Reset attempts after lockout period
-    }
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error_message)) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
     // Prepare and bind
-    $stmt = $conn->prepare("SELECT password FROM users WHERE username = ? AND role = 'staff'");
-
+    $stmt = $conn->prepare("SELECT password, role FROM users WHERE username = ?");
     if ($stmt) {
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $stmt->store_result();
-        
+
         if ($stmt->num_rows > 0) {
-            // Fetch the hashed password
-            $stmt->bind_result($hashed_password);
+            $stmt->bind_result($hashed_password, $role); // Fetch password and role
             $stmt->fetch();
 
-            // Verify the password
+            // Verify password
             if (password_verify($password, $hashed_password)) {
-                $_SESSION['username'] = $username;
-                $_SESSION['role'] = 'staff';
-                header("Location: main/index.php"); // Change this to your staff dashboard
-                exit;
+                // Assign role-based redirection logic
+                if ($role === 'staff') {
+                    $_SESSION['staff'] = [
+                        'username' => $username,
+                        'role' => 'staff',
+                    ];
+                    $_SESSION['logged_in'] = true;
+                    $_SESSION['role'] = 'staff';
+                    
+                    header("Location: main/index.php");
+                    exit;
+                    
+                }
             }
         }
 
-        echo $_SESSION['staff_login_attempts'];
-
-       // Failed login, increase attempt count
-// Failed login, increase attempt count
-$_SESSION['staff_login_attempts'] += 1;
-$_SESSION['last_staff_attempt_time'] = time();
-$attempts_remaining = $max_attempts - $_SESSION['staff_login_attempts'];
-
-$error_message = "
-    <div style='display: flex; align-items: center; gap: 10px; justify-content: center;'>
-        <img src='main/images/error-icon.png' alt='Error Icon' style='width: 30px; height: 30px; border-radius: 0;'>
-        <div>
-            <p style='color: red; margin: 0;'>Invalid username or password.</p>
-            <p style='margin: 0;'>Attempts remaining: $attempts_remaining</p>
-        </div>
-    </div>";
-
-
-        // Close the statement
+        // Handle failed login attempts
+        $_SESSION['staff_login_attempts'] += 1;
+        $_SESSION['last_staff_attempt_time'] = time();
+        $error_message = "Invalid username or password. Attempts remaining: " . ($max_attempts - $_SESSION['staff_login_attempts']);
         $stmt->close();
     }
 }
+
 
 // Close connection
 $conn->close();

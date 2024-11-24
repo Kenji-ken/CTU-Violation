@@ -374,11 +374,13 @@ form {
 }
 
 .logo {
-    width: 85px;
+    width: 90px;
     position: relative;
     top: -6px;
     animation: pulse-logo 1.5s infinite;
     margin-bottom: 15px;
+    border: 1px solid #fff;
+    border-radius: 45px;
 }
 
 h2 {

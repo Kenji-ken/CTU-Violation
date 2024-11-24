@@ -33,8 +33,6 @@ if (!empty($query)) {
                 'firstname' => $row['firstname'],
                 'violation' => $row['violation'],
                 'timestamp' => $row['timestamp'],
-                'course' => $row['course'] ?? 'N/A',
-                'department' => $row['department'] ?? 'N/A',
                 'image_url' => !empty($row['image_url']) ? $row['image_url'] : 'ID/Students/default.jpg',
             );
         }

@@ -5,9 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
-
-
     searchBtn.addEventListener('click', function () {
         const query = searchInput.value.trim();
         console.log(query)
@@ -45,8 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td class='offense'>1st Offense</td> <!-- Add class here -->
                         <td class='sanction'>Warning</td> <!-- Add class here -->
                         <td class='timestamp'>${row.timestamp}</td> <!-- Add class here -->
-                        <td>${row.course}</td>
-                        <td>${row.department}</td>
                         <td><img class='profile-image' src='${row.image_url}' alt='Profile Image' width='50' /></td>
                         <td>
                             <button class='edit-btn' data-id='${row.student_id}'>Edit</button>
@@ -170,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to open the modal
     function openModal() {
         const modal = document.getElementById('profileModal');
-        modal.style.display = 'block'; // Show the modal
+        modal.style.display = 'flex'; // Show the modal
     }
 
     // Function to close the modal
@@ -326,10 +321,6 @@ document.querySelectorAll('.edit-btn').forEach(button => {
         document.getElementById('sanction').value = sanction; // Show sanction
         document.getElementById('time').value = timestamp; // Show specific timestamp
 
-        // Populate course and department
-        document.getElementById('student-course').textContent = row.querySelector('.course').textContent;
-        document.getElementById('student-department').textContent = row.querySelector('.department').textContent;
-
         // Set the image in the modal
         document.getElementById('student-image').src = imageUrl; // Update image in modal
 
@@ -444,3 +435,56 @@ document.querySelectorAll('.edit-btn').forEach(button => {
         loadViolationHistory(studentId); // Load violation history for this student
     });
 });
+
+
+function handleSortDropdown() {
+    const dropdown = document.getElementById('sortDropdown');
+    const selectedOption = dropdown.value;
+
+    if (!selectedOption) return; // Do nothing if no option is selected
+
+    const [columnIndex, type] = selectedOption.split('-');
+    sortTable(parseInt(columnIndex), type);
+}
+
+function sortTable(columnIndex, type) {
+    const table = document.querySelector('table');
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
+
+    rows.sort((a, b) => {
+        let aData = a.cells[columnIndex].textContent.trim();
+        let bData = b.cells[columnIndex].textContent.trim();
+
+        // Handle different column types
+        if (type === 'number') {
+            aData = parseInt(aData, 10) || 0; // Parse as an integer, default to 0 if NaN
+            bData = parseInt(bData, 10) || 0;
+
+            // Compare for ascending order
+            if (aData > bData) return 1;
+            if (aData < bData) return -1;
+            return 0;
+        } else if (type === 'date') {
+            aData = new Date(aData).getTime();
+            bData = new Date(bData).getTime();
+
+            // Sort dates in descending order (most recent first)
+            if (aData < bData) return 1;
+            if (aData > bData) return -1;
+            return 0;
+        } else if (type === 'string') {
+            aData = aData.toLowerCase();
+            bData = bData.toLowerCase();
+
+            // Compare strings for ascending order
+            if (aData > bData) return 1;
+            if (aData < bData) return -1;
+            return 0;
+        }
+    });
+
+    // Append sorted rows back to the table body
+    const tbody = table.querySelector('tbody');
+    tbody.innerHTML = '';
+    rows.forEach(row => tbody.appendChild(row));
+}

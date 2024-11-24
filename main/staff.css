@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #121212;
+    background-color: #d8e1e7;
     color: #f8f8f8;
     display: flex;
     flex-direction: column;
@@ -58,7 +58,6 @@ body {
 
 .content {
     text-align: center;
-    margin-top: 80px;
     z-index: 10;
     position: relative;
     padding: 0 20px; /* Add padding for smaller screens */
